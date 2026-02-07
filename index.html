@@ -19,10 +19,11 @@
     <!-- Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <!-- Firebase SDK (Compatibility Version - More Reliable) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
 
     <style>
         /* 
@@ -282,15 +283,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .dropdown-item {
@@ -665,13 +659,8 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Sync Status */
@@ -707,8 +696,7 @@
                     <div class="brand-icon"><i class="fas fa-cube"></i></div>
                     <div style="text-align: center;">
                         <h1 style="font-size: 2rem; line-height: 1.1;">FinFlow Pro</h1>
-                        <span style="font-size: 0.9rem; color: var(--text-secondary);">Enterprise Finance
-                            Dashboard</span>
+                        <span style="font-size: 0.9rem; color: var(--text-secondary);">Enterprise Finance Dashboard</span>
                     </div>
                 </div>
 
@@ -721,8 +709,7 @@
                 <form id="login-form" class="auth-form active">
                     <div class="form-group">
                         <label class="label">Email Address</label>
-                        <input type="email" id="login-email" class="input-field" placeholder="name@company.com"
-                            required>
+                        <input type="email" id="login-email" class="input-field" placeholder="name@company.com" required>
                     </div>
 
                     <div class="form-group">
@@ -735,8 +722,7 @@
                             <input type="checkbox" id="remember-me">
                             <span style="font-size: 0.9rem;">Remember me</span>
                         </label>
-                        <a href="#" style="font-size: 0.9rem; color: var(--primary); text-decoration: none;"
-                            onclick="Auth.resetPassword()">Forgot password?</a>
+                        <a href="#" style="font-size: 0.9rem; color: var(--primary); text-decoration: none;" onclick="Auth.resetPassword()">Forgot password?</a>
                     </div>
 
                     <button type="button" onclick="Auth.login()" class="btn btn-primary" style="width: 100%;">
@@ -758,27 +744,23 @@
 
                     <div class="form-group">
                         <label class="label">Email Address</label>
-                        <input type="email" id="register-email" class="input-field" placeholder="name@company.com"
-                            required>
+                        <input type="email" id="register-email" class="input-field" placeholder="name@company.com" required>
                     </div>
 
                     <div class="form-group">
                         <label class="label">Password</label>
-                        <input type="password" id="register-password" class="input-field" placeholder="••••••••"
-                            required minlength="6">
+                        <input type="password" id="register-password" class="input-field" placeholder="••••••••" required minlength="6">
                     </div>
 
                     <div class="form-group">
                         <label class="label">Confirm Password</label>
-                        <input type="password" id="register-confirm" class="input-field" placeholder="••••••••" required
-                            minlength="6">
+                        <input type="password" id="register-confirm" class="input-field" placeholder="••••••••" required minlength="6">
                     </div>
 
                     <div style="margin: 1.5rem 0;">
                         <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                             <input type="checkbox" id="terms" required>
-                            <span style="font-size: 0.9rem;">I agree to the <a href="#"
-                                    style="color: var(--primary);">Terms & Conditions</a></span>
+                            <span style="font-size: 0.9rem;">I agree to the <a href="#" style="color: var(--primary);">Terms & Conditions</a></span>
                         </label>
                     </div>
 
@@ -798,8 +780,7 @@
                     <div class="brand-icon"><i class="fas fa-cube"></i></div>
                     <div>
                         <h1 style="font-size: 1.4rem; line-height: 1.1;">FinFlow Pro</h1>
-                        <span style="font-size: 0.8rem; color: var(--text-secondary);" id="user-email">Enterprise
-                            Dashboard</span>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);" id="user-email">Enterprise Dashboard</span>
                     </div>
                 </div>
                 <div class="user-menu">
@@ -834,8 +815,7 @@
                         <i class="fas fa-moon" id="theme-icon"></i>
                     </button>
                     <button class="btn btn-primary" onclick="App.exportCSV()">
-                        <i class="fas fa-download"></i> <span
-                            style="margin-left:5px; display:inline-block;">Export</span>
+                        <i class="fas fa-download"></i> <span style="margin-left:5px; display:inline-block;">Export</span>
                     </button>
                 </div>
             </header>
@@ -844,8 +824,7 @@
             <div class="history-nav">
                 <div>
                     <h3 style="font-size: 1.2rem; font-weight: 600;">Financial Overview</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;"
-                        id="history-period">
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;" id="history-period">
                         Current Period
                     </p>
                 </div>
@@ -853,19 +832,19 @@
                     <button class="btn btn-ghost" onclick="History.prevPeriod()">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-
+                    
                     <select class="history-select" id="history-month" onchange="History.updatePeriod()">
                         <!-- Populated by JS -->
                     </select>
-
+                    
                     <select class="history-select" id="history-year" onchange="History.updatePeriod()">
                         <!-- Populated by JS -->
                     </select>
-
+                    
                     <button class="btn btn-ghost" onclick="History.nextPeriod()">
                         <i class="fas fa-chevron-right"></i>
                     </button>
-
+                    
                     <button class="btn btn-primary" onclick="History.goToCurrent()">
                         <i class="fas fa-calendar-alt"></i> Current
                     </button>
@@ -918,8 +897,7 @@
 
                         <div class="form-group">
                             <label class="label">Description</label>
-                            <input type="text" id="tx-desc" class="input-field" placeholder="e.g. Client Payment"
-                                required>
+                            <input type="text" id="tx-desc" class="input-field" placeholder="e.g. Client Payment" required>
                         </div>
 
                         <div class="form-group">
@@ -999,28 +977,38 @@
          * Complete Cloud Solution
          */
 
-        // Firebase Configuration
+        // Firebase Configuration - Using YOUR Configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyC4R6AN1kmK7-6k4L1wQ8pYlNn7W8Xqabc", // Replace with your API key
-            projectId: "finflow-pro-demo", // Replace with your project ID
-            authDomain: "finflow-pro-demo.firebaseapp.com",
-            storageBucket: "finflow-pro-demo.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890"
+            apiKey: "AIzaSyDA9orgoSq8OjxahFmT3kgMu3sl-2kFBlY",
+            authDomain: "finflow-15f58.firebaseapp.com",
+            projectId: "finflow-15f58",
+            storageBucket: "finflow-15f58.firebasestorage.app",
+            messagingSenderId: "983313400695",
+            appId: "1:983313400695:web:5287a6c418b7538c279772",
+            measurementId: "G-J38FDB3YZQ"
         };
 
         // Initialize Firebase
-        let firebaseApp, auth, db;
-
+        let firebaseApp, auth, db, analytics;
+        
         try {
-            firebaseApp = firebase.initializeApp(firebaseConfig);
-            auth = firebase.auth();
-            db = firebase.firestore();
-            console.log("Firebase initialized successfully");
+            // Check if Firebase is available
+            if (typeof firebase !== 'undefined') {
+                firebaseApp = firebase.initializeApp(firebaseConfig);
+                auth = firebase.auth();
+                db = firebase.firestore();
+                analytics = firebase.analytics();
+                console.log("Firebase initialized successfully!");
+                
+                // Make available globally
+                window.firebaseApp = firebaseApp;
+                window.firebaseAuth = auth;
+                window.firebaseDb = db;
+            } else {
+                console.error("Firebase SDK not loaded");
+            }
         } catch (error) {
             console.error("Firebase initialization error:", error);
-            // Fallback to local storage
-            Database.useLocalStorage = true;
         }
 
         // Theme Manager
@@ -1044,219 +1032,6 @@
             }
         };
 
-        // Database Manager
-        const Database = {
-            useLocalStorage: false,
-            isOnline: false,
-            pendingSync: [],
-
-            init() {
-                this.updateSyncStatus();
-
-                // Check online status
-                window.addEventListener('online', () => this.updateSyncStatus());
-                window.addEventListener('offline', () => this.updateSyncStatus());
-
-                // Try to sync pending transactions every 30 seconds
-                setInterval(() => this.syncPendingTransactions(), 30000);
-            },
-
-            updateSyncStatus() {
-                const statusEl = document.getElementById('sync-status');
-                this.isOnline = navigator.onLine;
-
-                if (this.useLocalStorage) {
-                    statusEl.innerHTML = '<i class="fas fa-database"></i><span>Local Storage</span>';
-                    statusEl.className = 'sync-status offline';
-                } else if (this.isOnline) {
-                    statusEl.innerHTML = '<i class="fas fa-cloud"></i><span>Online</span>';
-                    statusEl.className = 'sync-status online';
-                } else {
-                    statusEl.innerHTML = '<i class="fas fa-wifi-slash"></i><span>Offline</span>';
-                    statusEl.className = 'sync-status offline';
-                }
-            },
-
-            async saveTransaction(transaction) {
-                // Always save to local storage first
-                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
-                localData.push(transaction);
-                localStorage.setItem('finflow_local_data', JSON.stringify(localData));
-
-                // If online and Firebase is available, save to cloud
-                if (this.isOnline && auth.currentUser && !this.useLocalStorage) {
-                    try {
-                        await db.collection('users')
-                            .doc(auth.currentUser.uid)
-                            .collection('transactions')
-                            .doc(transaction.id)
-                            .set(transaction);
-                        console.log('Transaction saved to Firebase');
-                    } catch (error) {
-                        console.error('Error saving to Firebase:', error);
-                        this.pendingSync.push(transaction);
-                    }
-                } else {
-                    this.pendingSync.push(transaction);
-                }
-            },
-
-            async loadTransactions() {
-                // Try to load from cloud first
-                if (auth.currentUser && !this.useLocalStorage && this.isOnline) {
-                    try {
-                        const snapshot = await db.collection('users')
-                            .doc(auth.currentUser.uid)
-                            .collection('transactions')
-                            .orderBy('date', 'desc')
-                            .get();
-
-                        const cloudData = [];
-                        snapshot.forEach(doc => {
-                            cloudData.push(doc.data());
-                        });
-
-                        // Save cloud data to local storage for offline access
-                        localStorage.setItem('finflow_cloud_data', JSON.stringify(cloudData));
-
-                        return cloudData;
-                    } catch (error) {
-                        console.error('Error loading from Firebase:', error);
-                        this.useLocalStorage = true;
-                    }
-                }
-
-                // Fallback to local storage
-                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
-                const cloudData = JSON.parse(localStorage.getItem('finflow_cloud_data') || '[]');
-
-                // Merge local and cached cloud data
-                return [...localData, ...cloudData].filter((v, i, a) =>
-                    a.findIndex(t => t.id === v.id) === i
-                );
-            },
-
-            async deleteTransaction(transactionId) {
-                // Remove from local storage
-                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
-                const filteredData = localData.filter(t => t.id !== transactionId);
-                localStorage.setItem('finflow_local_data', JSON.stringify(filteredData));
-
-                // Remove from cloud if online
-                if (auth.currentUser && !this.useLocalStorage && this.isOnline) {
-                    try {
-                        await db.collection('users')
-                            .doc(auth.currentUser.uid)
-                            .collection('transactions')
-                            .doc(transactionId)
-                            .delete();
-                    } catch (error) {
-                        console.error('Error deleting from Firebase:', error);
-                    }
-                }
-            },
-
-            async clearAllTransactions() {
-                // Clear local storage
-                localStorage.removeItem('finflow_local_data');
-
-                // Clear cloud data if online
-                if (auth.currentUser && !this.useLocalStorage && this.isOnline) {
-                    try {
-                        const snapshot = await db.collection('users')
-                            .doc(auth.currentUser.uid)
-                            .collection('transactions')
-                            .get();
-
-                        const batch = db.batch();
-                        snapshot.forEach(doc => {
-                            batch.delete(doc.ref);
-                        });
-
-                        await batch.commit();
-                    } catch (error) {
-                        console.error('Error clearing Firebase:', error);
-                    }
-                }
-            },
-
-            async syncPendingTransactions() {
-                if (this.pendingSync.length === 0 || !this.isOnline || !auth.currentUser || this.useLocalStorage) {
-                    return;
-                }
-
-                const batch = db.batch();
-                const userRef = db.collection('users').doc(auth.currentUser.uid);
-
-                this.pendingSync.forEach(transaction => {
-                    const txRef = userRef.collection('transactions').doc(transaction.id);
-                    batch.set(txRef, transaction);
-                });
-
-                try {
-                    await batch.commit();
-                    this.pendingSync = [];
-                    this.showToast('Pending transactions synced to cloud', 'success');
-                } catch (error) {
-                    console.error('Error syncing pending transactions:', error);
-                }
-            },
-
-            async syncLocalToCloud() {
-                if (!auth.currentUser || this.useLocalStorage) {
-                    this.showToast('Cannot sync: Firebase not configured', 'error');
-                    return;
-                }
-
-                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
-                if (localData.length === 0) {
-                    this.showToast('No local data to sync', 'info');
-                    return;
-                }
-
-                this.showToast('Syncing to cloud...', 'info');
-
-                const batch = db.batch();
-                const userRef = db.collection('users').doc(auth.currentUser.uid);
-
-                localData.forEach(transaction => {
-                    const txRef = userRef.collection('transactions').doc(transaction.id);
-                    batch.set(txRef, transaction);
-                });
-
-                try {
-                    await batch.commit();
-                    localStorage.removeItem('finflow_local_data');
-                    this.showToast('All data synced to cloud successfully', 'success');
-                    App.loadData(); // Reload data
-                } catch (error) {
-                    console.error('Error syncing to cloud:', error);
-                    this.showToast('Sync failed: ' + error.message, 'error');
-                }
-            },
-
-            showToast(msg, type = 'info') {
-                const container = document.getElementById('toast-container');
-                const toast = document.createElement('div');
-                toast.className = 'toast';
-
-                const color = type === 'error' ? 'var(--danger)' :
-                    type === 'success' ? 'var(--success)' : 'var(--primary)';
-                toast.style.borderLeftColor = color;
-
-                const icon = type === 'error' ? 'fa-exclamation-circle' :
-                    type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
-
-                toast.innerHTML = `
-                    <i class="fas ${icon}" style="color: ${color};"></i>
-                    <span>${message}</span>
-                `;
-
-                container.appendChild(toast);
-                setTimeout(() => toast.remove(), 3000);
-            }
-        };
-
         // Utils
         const Utils = {
             formatCurrency: (num) => {
@@ -1266,21 +1041,21 @@
                     maximumFractionDigits: 2
                 });
             },
-
+            
             formatDate: (date) => {
                 try {
                     const dateObj = new Date(date);
                     if (isNaN(dateObj.getTime())) return 'Invalid Date';
-                    return new Intl.DateTimeFormat('en-IN', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
+                    return new Intl.DateTimeFormat('en-IN', { 
+                        day: 'numeric', 
+                        month: 'short', 
+                        year: 'numeric' 
                     }).format(dateObj);
                 } catch (e) {
                     return 'Invalid Date';
                 }
             },
-
+            
             generateID: () => Date.now().toString(36) + Math.random().toString(36).substr(2),
 
             categories: {
@@ -1302,19 +1077,232 @@
             }
         };
 
+        // Database Manager
+        const Database = {
+            useLocalStorage: false,
+            isOnline: false,
+            pendingSync: [],
+
+            init() {
+                this.updateSyncStatus();
+                
+                // Check online status
+                window.addEventListener('online', () => this.updateSyncStatus());
+                window.addEventListener('offline', () => this.updateSyncStatus());
+                
+                // Try to sync pending transactions every 30 seconds
+                setInterval(() => this.syncPendingTransactions(), 30000);
+            },
+
+            updateSyncStatus() {
+                const statusEl = document.getElementById('sync-status');
+                this.isOnline = navigator.onLine;
+                
+                if (this.useLocalStorage || !window.firebaseAuth) {
+                    statusEl.innerHTML = '<i class="fas fa-database"></i><span>Local Storage</span>';
+                    statusEl.className = 'sync-status offline';
+                } else if (this.isOnline) {
+                    statusEl.innerHTML = '<i class="fas fa-cloud"></i><span>Online</span>';
+                    statusEl.className = 'sync-status online';
+                } else {
+                    statusEl.innerHTML = '<i class="fas fa-wifi-slash"></i><span>Offline</span>';
+                    statusEl.className = 'sync-status offline';
+                }
+            },
+
+            async saveTransaction(transaction) {
+                // Always save to local storage first
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                localData.push(transaction);
+                localStorage.setItem('finflow_local_data', JSON.stringify(localData));
+
+                // If online and Firebase is available, save to cloud
+                if (this.isOnline && window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage) {
+                    try {
+                        await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .doc(transaction.id)
+                            .set(transaction);
+                        console.log('Transaction saved to Firebase');
+                    } catch (error) {
+                        console.error('Error saving to Firebase:', error);
+                        this.pendingSync.push(transaction);
+                    }
+                } else {
+                    this.pendingSync.push(transaction);
+                }
+            },
+
+            async loadTransactions() {
+                // Try to load from cloud first
+                if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
+                    try {
+                        const snapshot = await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .orderBy('date', 'desc')
+                            .get();
+                        
+                        const cloudData = [];
+                        snapshot.forEach(doc => {
+                            cloudData.push(doc.data());
+                        });
+                        
+                        // Save cloud data to local storage for offline access
+                        localStorage.setItem('finflow_cloud_data', JSON.stringify(cloudData));
+                        
+                        return cloudData;
+                    } catch (error) {
+                        console.error('Error loading from Firebase:', error);
+                        this.useLocalStorage = true;
+                    }
+                }
+                
+                // Fallback to local storage
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                const cloudData = JSON.parse(localStorage.getItem('finflow_cloud_data') || '[]');
+                
+                // Merge local and cached cloud data
+                return [...localData, ...cloudData].filter((v, i, a) => 
+                    a.findIndex(t => t.id === v.id) === i
+                );
+            },
+
+            async deleteTransaction(transactionId) {
+                // Remove from local storage
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                const filteredData = localData.filter(t => t.id !== transactionId);
+                localStorage.setItem('finflow_local_data', JSON.stringify(filteredData));
+                
+                // Remove from cloud if online
+                if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
+                    try {
+                        await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .doc(transactionId)
+                            .delete();
+                    } catch (error) {
+                        console.error('Error deleting from Firebase:', error);
+                    }
+                }
+            },
+
+            async clearAllTransactions() {
+                // Clear local storage
+                localStorage.removeItem('finflow_local_data');
+                
+                // Clear cloud data if online
+                if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
+                    try {
+                        const snapshot = await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .get();
+                        
+                        const batch = db.batch();
+                        snapshot.forEach(doc => {
+                            batch.delete(doc.ref);
+                        });
+                        
+                        await batch.commit();
+                    } catch (error) {
+                        console.error('Error clearing Firebase:', error);
+                    }
+                }
+            },
+
+            async syncPendingTransactions() {
+                if (this.pendingSync.length === 0 || !this.isOnline || !window.firebaseAuth || !window.firebaseAuth.currentUser || this.useLocalStorage) {
+                    return;
+                }
+
+                const batch = db.batch();
+                const userRef = db.collection('users').doc(window.firebaseAuth.currentUser.uid);
+                
+                this.pendingSync.forEach(transaction => {
+                    const txRef = userRef.collection('transactions').doc(transaction.id);
+                    batch.set(txRef, transaction);
+                });
+                
+                try {
+                    await batch.commit();
+                    this.pendingSync = [];
+                    this.showToast('Pending transactions synced to cloud', 'success');
+                } catch (error) {
+                    console.error('Error syncing pending transactions:', error);
+                }
+            },
+
+            async syncLocalToCloud() {
+                if (!window.firebaseAuth || !window.firebaseAuth.currentUser || this.useLocalStorage) {
+                    this.showToast('Cannot sync: Firebase not configured', 'error');
+                    return;
+                }
+                
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                if (localData.length === 0) {
+                    this.showToast('No local data to sync', 'info');
+                    return;
+                }
+                
+                this.showToast('Syncing to cloud...', 'info');
+                
+                const batch = db.batch();
+                const userRef = db.collection('users').doc(window.firebaseAuth.currentUser.uid);
+                
+                localData.forEach(transaction => {
+                    const txRef = userRef.collection('transactions').doc(transaction.id);
+                    batch.set(txRef, transaction);
+                });
+                
+                try {
+                    await batch.commit();
+                    localStorage.removeItem('finflow_local_data');
+                    this.showToast('All data synced to cloud successfully', 'success');
+                    App.loadData(); // Reload data
+                } catch (error) {
+                    console.error('Error syncing to cloud:', error);
+                    this.showToast('Sync failed: ' + error.message, 'error');
+                }
+            },
+
+            showToast(msg, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                
+                const color = type === 'error' ? 'var(--danger)' : 
+                             type === 'success' ? 'var(--success)' : 'var(--primary)';
+                toast.style.borderLeftColor = color;
+                
+                const icon = type === 'error' ? 'fa-exclamation-circle' :
+                           type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+                
+                toast.innerHTML = `
+                    <i class="fas ${icon}" style="color: ${color};"></i>
+                    <span>${msg}</span>
+                `;
+                
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+        };
+
         // Authentication Manager with Firebase
         const Auth = {
             currentUser: null,
 
             init() {
-                if (!auth) {
-                    this.showToast('Firebase not available. Using local storage only.', 'error');
-                    Database.useLocalStorage = true;
+                if (!window.firebaseAuth) {
+                    console.log("Waiting for Firebase to load...");
+                    setTimeout(() => this.init(), 1000);
                     return;
                 }
 
                 // Listen for auth state changes
-                auth.onAuthStateChanged(async (user) => {
+                window.firebaseAuth.onAuthStateChanged(async (user) => {
                     if (user) {
                         this.currentUser = user;
                         await this.showDashboard();
@@ -1354,16 +1342,16 @@
                 }
 
                 try {
-                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    const userCredential = await window.firebaseAuth.signInWithEmailAndPassword(email, password);
                     this.currentUser = userCredential.user;
-
+                    
                     // Store user info
                     localStorage.setItem('finflow_user', JSON.stringify({
                         uid: this.currentUser.uid,
                         email: this.currentUser.email,
                         name: this.currentUser.displayName || email.split('@')[0]
                     }));
-
+                    
                     this.showToast('Welcome back!', 'success');
                 } catch (error) {
                     console.error('Login error:', error);
@@ -1393,14 +1381,14 @@
                 }
 
                 try {
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    const userCredential = await window.firebaseAuth.createUserWithEmailAndPassword(email, password);
                     this.currentUser = userCredential.user;
-
+                    
                     // Update profile with name
                     await this.currentUser.updateProfile({
                         displayName: name
                     });
-
+                    
                     // Create user document in Firestore
                     await db.collection('users').doc(this.currentUser.uid).set({
                         name: name,
@@ -1408,14 +1396,14 @@
                         createdAt: new Date().toISOString(),
                         lastLogin: new Date().toISOString()
                     });
-
+                    
                     // Store user info
                     localStorage.setItem('finflow_user', JSON.stringify({
                         uid: this.currentUser.uid,
                         email: this.currentUser.email,
                         name: name
                     }));
-
+                    
                     this.showToast('Account created successfully!', 'success');
                 } catch (error) {
                     console.error('Registration error:', error);
@@ -1431,7 +1419,7 @@
                 }
 
                 try {
-                    await auth.sendPasswordResetEmail(email);
+                    await window.firebaseAuth.sendPasswordResetEmail(email);
                     this.showToast('Password reset email sent. Check your inbox.', 'success');
                 } catch (error) {
                     this.showToast(this.getAuthErrorMessage(error), 'error');
@@ -1463,7 +1451,7 @@
                 // Update UI with user info
                 document.getElementById('user-email').textContent = this.currentUser.email;
                 document.getElementById('dropdown-name').textContent = this.currentUser.displayName || this.currentUser.email.split('@')[0];
-
+                
                 // Generate avatar initials
                 const displayName = this.currentUser.displayName || this.currentUser.email;
                 const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase();
@@ -1495,19 +1483,19 @@
                 const container = document.getElementById('toast-container');
                 const toast = document.createElement('div');
                 toast.className = 'toast';
-
-                const color = type === 'error' ? 'var(--danger)' :
-                    type === 'success' ? 'var(--success)' : 'var(--primary)';
+                
+                const color = type === 'error' ? 'var(--danger)' : 
+                             type === 'success' ? 'var(--success)' : 'var(--primary)';
                 toast.style.borderLeftColor = color;
-
+                
                 const icon = type === 'error' ? 'fa-exclamation-circle' :
-                    type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
-
+                           type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+                
                 toast.innerHTML = `
                     <i class="fas ${icon}" style="color: ${color};"></i>
                     <span>${message}</span>
                 `;
-
+                
                 container.appendChild(toast);
                 setTimeout(() => toast.remove(), 3000);
             }
@@ -1521,8 +1509,8 @@
 
             async signOut() {
                 try {
-                    if (auth) {
-                        await auth.signOut();
+                    if (window.firebaseAuth) {
+                        await window.firebaseAuth.signOut();
                     }
                     localStorage.removeItem('finflow_user');
                     window.location.reload();
@@ -1569,10 +1557,10 @@
             updatePeriod() {
                 const monthSelect = document.getElementById('history-month');
                 const yearSelect = document.getElementById('history-year');
-
+                
                 this.currentMonth = parseInt(monthSelect.value);
                 this.currentYear = parseInt(yearSelect.value);
-
+                
                 this.updatePeriodDisplay();
                 App.updateUI();
             },
@@ -1589,7 +1577,7 @@
                 } else {
                     this.currentMonth--;
                 }
-
+                
                 this.updateSelectors();
                 this.updatePeriodDisplay();
                 App.updateUI();
@@ -1602,7 +1590,7 @@
                 } else {
                     this.currentMonth++;
                 }
-
+                
                 this.updateSelectors();
                 this.updatePeriodDisplay();
                 App.updateUI();
@@ -1612,7 +1600,7 @@
                 const now = new Date();
                 this.currentMonth = now.getMonth();
                 this.currentYear = now.getFullYear();
-
+                
                 this.updateSelectors();
                 this.updatePeriodDisplay();
                 App.updateUI();
@@ -1627,8 +1615,8 @@
                 return transactions.filter(tx => {
                     try {
                         const txDate = new Date(tx.date);
-                        return txDate.getMonth() === this.currentMonth &&
-                            txDate.getFullYear() === this.currentYear;
+                        return txDate.getMonth() === this.currentMonth && 
+                               txDate.getFullYear() === this.currentYear;
                     } catch (e) {
                         return false;
                     }
@@ -1644,7 +1632,7 @@
                 const today = new Date();
                 const formattedDate = today.toISOString().split('T')[0];
                 document.getElementById('tx-date').value = formattedDate;
-
+                
                 this.updateCategories();
 
                 document.getElementById('tx-form').addEventListener('submit', (e) => {
@@ -1678,7 +1666,7 @@
             getValues() {
                 const amount = parseFloat(document.getElementById('tx-amount').value) || 0;
                 const date = document.getElementById('tx-date').value;
-
+                
                 return {
                     id: Utils.generateID(),
                     desc: document.getElementById('tx-desc').value.trim(),
@@ -1733,18 +1721,18 @@
 
             async addTransaction() {
                 const tx = Form.getValues();
-
+                
                 if (!tx.desc || tx.amount <= 0) {
                     this.showToast('Please enter valid description and amount', 'error');
                     return;
                 }
-
+                
                 // Add to data array
                 this.data.push(tx);
-
+                
                 // Save to database
                 await Database.saveTransaction(tx);
-
+                
                 // Update UI
                 this.updateUI();
                 Form.reset();
@@ -1777,7 +1765,7 @@
 
             renderKPIs() {
                 const periodData = History.filterByPeriod(this.data);
-
+                
                 const totals = periodData.reduce((acc, t) => {
                     const amount = parseFloat(t.amount) || 0;
                     acc[t.type] = (acc[t.type] || 0) + amount;
@@ -1787,7 +1775,7 @@
                 const income = totals.income || 0;
                 const expense = totals.expense || 0;
                 const bal = income - expense;
-
+                
                 let savings = 0;
                 if (income > 0) {
                     savings = (Math.max(bal, 0) / income) * 100;
@@ -1853,9 +1841,9 @@
                     this.renderList(this.data);
                     return;
                 }
-
-                const filtered = this.data.filter(t =>
-                    t.desc.toLowerCase().includes(lower) ||
+                
+                const filtered = this.data.filter(t => 
+                    t.desc.toLowerCase().includes(lower) || 
                     t.amount.toString().includes(lower) ||
                     t.category.toLowerCase().includes(lower)
                 );
@@ -1870,7 +1858,7 @@
             renderChart() {
                 const ctx = document.getElementById('financeChart');
                 if (!ctx) return;
-
+                
                 const ctx2d = ctx.getContext('2d');
                 const periodData = History.filterByPeriod(this.data);
                 const relevantData = periodData.filter(t => t.type === this.chartType);
@@ -1940,12 +1928,12 @@
 
             exportCSV() {
                 const periodData = History.filterByPeriod(this.data);
-
+                
                 if (periodData.length === 0) {
                     this.showToast('No data to export', 'error');
                     return;
                 }
-
+                
                 let csv = "Date,Description,Type,Category,Amount\n";
                 periodData.forEach(t => {
                     csv += `${t.date},"${t.desc}",${t.type},${t.category},${t.amount}\n`;
@@ -1958,7 +1946,7 @@
                 const period = `${History.months[History.currentMonth]}_${History.currentYear}`;
                 a.download = `FinFlow_${period}_${new Date().toISOString().split('T')[0]}.csv`;
                 a.click();
-
+                
                 this.showToast('CSV exported successfully', 'success');
             },
 
@@ -1966,8 +1954,8 @@
                 const container = document.getElementById('toast-container');
                 const toast = document.createElement('div');
                 toast.className = 'toast';
-                const color = type === 'success' ? 'var(--success)' :
-                    type === 'error' ? 'var(--danger)' : 'var(--primary)';
+                const color = type === 'success' ? 'var(--success)' : 
+                             type === 'error' ? 'var(--danger)' : 'var(--primary)';
                 toast.style.borderLeftColor = color;
                 toast.innerHTML = `<span>${msg}</span>`;
                 container.appendChild(toast);
@@ -1979,15 +1967,19 @@
         document.addEventListener('click', (e) => {
             const dropdown = document.getElementById('user-dropdown');
             const avatar = document.getElementById('user-avatar');
-
+            
             if (dropdown && avatar && !avatar.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.remove('active'); s
+                dropdown.classList.remove('active');
             }
         });
 
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
-            Auth.init();
+            console.log("DOM loaded, initializing Auth...");
+            // Wait for Firebase to load
+            setTimeout(() => {
+                Auth.init();
+            }, 2000);
         });
 
     </script>
