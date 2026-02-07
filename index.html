@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinFlow Pro | Enterprise Finance</title>
 
     <!-- Typography -->
@@ -19,7 +19,7 @@
     <!-- Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK (Compatibility Version - More Reliable) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -28,12 +28,12 @@
     <style>
         /* 
          * ------------------------------------------------------------------
-         * DESIGN SYSTEM 2.0 - ENTERPRISE GRADE & RESPONSIVE
+         * DESIGN SYSTEM 2.0 - ENTERPRISE GRADE
          * ------------------------------------------------------------------
          */
 
         :root {
-            /* Core HSL Colors */
+            /* Core HSL Colors - allows for alpha transparency manipulation */
             --primary-h: 226;
             --primary-s: 70%;
             --primary-l: 55%;
@@ -97,29 +97,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        /* Enable text selection for input fields and content areas */
-        input, textarea, select,
-        .tx-content, .kpi-value, .kpi-label,
-        .dropdown-item span, #user-email, #history-period {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
-
-        html {
-            font-size: 16px;
-            overflow-x: hidden;
-            width: 100%;
-            height: 100%;
-            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -134,10 +111,6 @@
                 radial-gradient(at 0% 0%, hsla(var(--primary-h), 80%, 90%, 0.3) 0px, transparent 50%),
                 radial-gradient(at 100% 0%, hsla(var(--success-h), 80%, 90%, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
-            touch-action: manipulation;
-            width: 100%;
-            max-width: 100vw;
-            position: relative;
         }
 
         [data-theme="dark"] body {
@@ -153,17 +126,13 @@
             font-family: 'Outfit', sans-serif;
             font-weight: 600;
             letter-spacing: -0.02em;
-            word-wrap: break-word;
         }
 
         /* Layout */
         .wrapper {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 1.5rem clamp(1rem, 4vw, 2rem);
-            width: 100%;
-            overflow: hidden;
-            position: relative;
+            padding: 1.5rem 2rem;
         }
 
         /* Auth Screen */
@@ -172,15 +141,12 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 2rem 1rem;
-            width: 100%;
-            overflow: hidden;
+            padding: 2rem;
         }
 
         .auth-container {
             width: 100%;
-            max-width: min(420px, 95vw);
-            padding: 0 0.5rem;
+            max-width: 420px;
         }
 
         .auth-tabs {
@@ -189,23 +155,17 @@
             border-radius: var(--radius-lg);
             background: var(--border);
             padding: 0.25rem;
-            width: 100%;
         }
 
         .auth-tab {
             flex: 1;
             text-align: center;
-            padding: 0.8rem 0.5rem;
+            padding: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             border-radius: calc(var(--radius-lg) - 4px);
             color: var(--text-secondary);
             transition: all 0.3s ease;
-            min-width: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
         }
 
         .auth-tab.active {
@@ -216,7 +176,6 @@
 
         .auth-form {
             display: none;
-            width: 100%;
         }
 
         .auth-form.active {
@@ -230,11 +189,9 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: var(--radius-lg);
-            padding: 1.5rem clamp(1rem, 3vw, 1.5rem);
+            padding: 1.5rem;
             box-shadow: var(--shadow-md);
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
-            width: 100%;
-            overflow: hidden;
         }
 
         [data-theme="dark"] .glass-card {
@@ -252,56 +209,46 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             background: var(--bg-glass);
             backdrop-filter: blur(12px);
-            padding: 0.75rem clamp(0.75rem, 2vw, 1.5rem);
+            padding: 1rem 1.5rem;
             border-radius: 99px;
             border: 1px solid var(--border);
             position: sticky;
-            top: 0.75rem;
+            top: 1rem;
             z-index: 50;
             box-shadow: var(--shadow-sm);
-            width: 100%;
-            max-width: 100%;
-            overflow: hidden;
-            flex-wrap: wrap;
-            gap: 0.75rem;
         }
 
         .brand {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            min-width: 0;
-            flex: 1;
         }
 
         .brand-icon {
-            width: clamp(36px, 8vw, 44px);
-            height: clamp(36px, 8vw, 44px);
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 12px;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1rem, 3vw, 1.25rem);
+            font-size: 1.25rem;
             box-shadow: 0 4px 12px var(--primary-glow);
-            flex-shrink: 0;
         }
 
         .user-menu {
             display: flex;
             align-items: center;
-            gap: clamp(0.5rem, 2vw, 1rem);
-            flex-wrap: nowrap;
-            min-width: 0;
+            gap: 1rem;
         }
 
         .user-avatar {
-            width: clamp(36px, 8vw, 40px);
-            height: clamp(36px, 8vw, 40px);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -310,22 +257,17 @@
             justify-content: center;
             font-weight: 600;
             cursor: pointer;
-            flex-shrink: 0;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
         }
 
         .dropdown {
             position: relative;
-            flex-shrink: 0;
         }
 
         .dropdown-content {
-            position: fixed;
-            right: clamp(0.5rem, 2vw, 1rem);
-            top: 70px;
+            position: absolute;
+            right: 0;
+            top: 120%;
             min-width: 200px;
-            max-width: min(300px, 90vw);
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
@@ -333,7 +275,6 @@
             box-shadow: var(--shadow-float);
             display: none;
             z-index: 100;
-            width: auto;
         }
 
         .dropdown-content.active {
@@ -356,68 +297,24 @@
             color: var(--text-main);
             text-decoration: none;
             transition: background 0.2s;
-            white-space: nowrap;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
         }
 
         .dropdown-item:hover {
             background: var(--border);
         }
 
-        /* Buttons - IMPROVED TOUCH TARGETS */
+        /* Buttons */
         .btn {
             cursor: pointer;
-            padding: 0.75rem clamp(0.75rem, 2vw, 1.25rem);
+            padding: 0.75rem 1.25rem;
             border-radius: var(--radius-md);
             font-weight: 600;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-size: 0.9rem;
             border: none;
             transition: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            white-space: nowrap;
-            flex-shrink: 0;
-            min-height: 48px; /* Increased for better touch */
-            min-width: 48px; /* Minimum touch target */
-            justify-content: center;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-            touch-action: manipulation;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Ripple effect for buttons */
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        .btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
         }
 
         .btn-primary {
@@ -426,7 +323,7 @@
             box-shadow: 0 4px 12px var(--primary-glow);
         }
 
-        .btn-primary:hover, .btn-primary:active {
+        .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-1px);
         }
@@ -437,7 +334,7 @@
             border: 1px solid var(--border);
         }
 
-        .btn-ghost:hover, .btn-ghost:active {
+        .btn-ghost:hover {
             background: var(--border);
             color: var(--text-main);
         }
@@ -447,63 +344,57 @@
             color: white;
         }
 
-        .btn-danger:hover, .btn-danger:active {
+        .btn-danger:hover {
             opacity: 0.9;
             transform: translateY(-1px);
         }
 
         .btn-icon {
-            width: clamp(48px, 10vw, 60px);
-            height: clamp(48px, 10vw, 60px);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             padding: 0;
             justify-content: center;
-            flex-shrink: 0;
         }
 
         /* Dashboard Grid */
         .grid-kpi {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
-            width: 100%;
         }
 
         .kpi-item {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 120px;
+            min-height: 140px;
             position: relative;
             overflow: hidden;
-            width: 100%;
         }
 
         .kpi-label {
-            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-secondary);
             margin-bottom: 0.5rem;
             font-weight: 600;
-            word-wrap: break-word;
         }
 
         .kpi-value {
-            font-size: clamp(1.5rem, 5vw, 2.25rem);
+            font-size: 2.25rem;
             font-weight: 700;
             font-family: 'Outfit', sans-serif;
             z-index: 10;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
         }
 
         .kpi-bg-icon {
             position: absolute;
             right: -15px;
             bottom: -15px;
-            font-size: clamp(3rem, 10vw, 6rem);
+            font-size: 6rem;
             opacity: 0.05;
             transform: rotate(-15deg);
         }
@@ -511,24 +402,26 @@
         /* Form Area */
         .main-layout {
             display: grid;
-            grid-template-columns: minmax(0, 350px) minmax(0, 1fr);
-            gap: clamp(1rem, 3vw, 2rem);
-            width: 100%;
-            overflow: hidden;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
         }
 
         .form-group {
             margin-bottom: 1.25rem;
-            width: 100%;
         }
 
         .label {
             display: block;
-            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 0.4rem;
             color: var(--text-secondary);
-            word-wrap: break-word;
         }
 
         .input-field {
@@ -538,15 +431,8 @@
             border: 1px solid var(--border);
             background: var(--bg-body);
             color: var(--text-main);
-            font-size: clamp(0.9rem, 2vw, 0.95rem);
+            font-size: 0.95rem;
             transition: 0.2s;
-            font-size: 16px;
-            max-width: 100%;
-            box-sizing: border-box;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            touch-action: manipulation;
         }
 
         .input-field:focus {
@@ -555,44 +441,24 @@
             box-shadow: 0 0 0 3px var(--primary-light);
         }
 
-        /* Style for date input on mobile */
-        input[type="date"] {
-            min-height: 48px;
-        }
-
-        /* Style for number input on mobile */
-        input[type="number"] {
-            min-height: 48px;
-        }
-
         .type-toggle {
             background: var(--border);
             padding: 0.25rem;
             border-radius: var(--radius-md);
             display: flex;
             margin-bottom: 1.5rem;
-            width: 100%;
         }
 
         .toggle-btn {
             flex: 1;
             text-align: center;
-            padding: 0.75rem 0.5rem; /* Increased padding for touch */
+            padding: 0.6rem;
             font-weight: 600;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-size: 0.9rem;
             border-radius: calc(var(--radius-md) - 2px);
             cursor: pointer;
             color: var(--text-secondary);
             transition: 0.2s;
-            min-width: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-            min-height: 44px; /* Minimum touch target */
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .toggle-btn.active {
@@ -611,39 +477,22 @@
             background: var(--bg-body);
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
-            width: 100%;
-            flex-wrap: wrap;
-            gap: 1rem;
-            overflow: hidden;
         }
 
         .history-controls {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            width: 100%;
+            gap: 1rem;
         }
 
         .history-select {
-            min-width: 120px;
-            width: auto;
-            flex: 1;
-            padding: 0.75rem 1rem; /* Increased padding */
+            min-width: 140px;
+            padding: 0.5rem 1rem;
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
             background: var(--bg-card);
             color: var(--text-main);
             font-weight: 500;
-            cursor: pointer;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
-            max-width: 100%;
-            min-height: 48px; /* Minimum touch target */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
         }
 
         /* Transaction List */
@@ -654,9 +503,6 @@
             margin-bottom: 1rem;
             border-bottom: 1px solid var(--border);
             padding-bottom: 1rem;
-            width: 100%;
-            flex-wrap: wrap;
-            gap: 0.75rem;
         }
 
         .tx-list {
@@ -664,8 +510,6 @@
             max-height: 500px;
             overflow-y: auto;
             padding-right: 0.5rem;
-            -webkit-overflow-scrolling: touch;
-            width: 100%;
         }
 
         .tx-list::-webkit-scrollbar {
@@ -679,69 +523,49 @@
 
         .tx-item {
             display: grid;
-            grid-template-columns: minmax(40px, 50px) minmax(0, 1fr) auto;
+            grid-template-columns: 50px 1fr auto;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
+            gap: 1rem;
+            padding: 1rem;
             border-bottom: 1px solid var(--border);
             transition: 0.2s;
             border-radius: var(--radius-sm);
-            width: 100%;
-            overflow: hidden;
-            cursor: pointer;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
-            min-height: 70px; /* Minimum touch target for list items */
         }
 
-        .tx-item:hover, .tx-item:active {
+        .tx-item:hover {
             background: var(--bg-body);
             transform: translateX(4px);
         }
 
         .tx-icon {
-            width: clamp(36px, 8vw, 42px);
-            height: clamp(36px, 8vw, 42px);
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1rem, 2vw, 1.1rem);
-            flex-shrink: 0;
-        }
-
-        .tx-content {
-            min-width: 0;
-            overflow: hidden;
+            font-size: 1.1rem;
         }
 
         .tx-content h4 {
-            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-size: 1rem;
             margin-bottom: 0.1rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
         }
 
         .tx-content p {
-            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .tx-amount {
             font-weight: 700;
-            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-size: 1rem;
             text-align: right;
-            white-space: nowrap;
-            flex-shrink: 0;
         }
 
         .tx-date {
             display: block;
-            font-size: clamp(0.7rem, 2vw, 0.75rem);
+            font-size: 0.75rem;
             color: var(--text-secondary);
             font-weight: 400;
         }
@@ -752,24 +576,14 @@
             transition: 0.2s;
             cursor: pointer;
             padding: 0.5rem;
-            min-width: 48px;
-            min-height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
         }
 
-        .tx-item:hover .delete-btn,
-        .tx-item:active .delete-btn {
+        .tx-item:hover .delete-btn {
             opacity: 1;
         }
 
-        .delete-btn:hover, .delete-btn:active {
+        .delete-btn:hover {
             color: var(--danger);
-            background: rgba(239, 68, 68, 0.1);
         }
 
         /* Chart */
@@ -777,8 +591,6 @@
             position: relative;
             height: 300px;
             width: 100%;
-            max-width: 100%;
-            overflow: hidden;
         }
 
         /* Utility */
@@ -798,12 +610,9 @@
         .toast-container {
             position: fixed;
             bottom: 2rem;
-            right: clamp(1rem, 3vw, 2rem);
-            left: clamp(1rem, 3vw, 2rem);
+            right: 2rem;
             z-index: 100;
             pointer-events: none;
-            max-width: 400px;
-            margin: 0 auto;
         }
 
         .toast {
@@ -818,9 +627,6 @@
             margin-top: 1rem;
             pointer-events: auto;
             animation: slideIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            width: 100%;
-            max-width: 100%;
-            touch-action: manipulation;
         }
 
         @keyframes slideIn {
@@ -841,7 +647,6 @@
             justify-content: center;
             align-items: center;
             padding: 3rem;
-            width: 100%;
         }
 
         .spinner {
@@ -863,14 +668,11 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            font-size: 0.8rem;
             color: var(--text-secondary);
             padding: 0.25rem 0.5rem;
             border-radius: var(--radius-sm);
             background: var(--border);
-            white-space: nowrap;
-            flex-shrink: 0;
-            min-height: 32px;
         }
 
         .sync-status.online {
@@ -882,507 +684,6 @@
             color: var(--danger);
             background: var(--danger)10;
         }
-
-        /* ------------------------------------------------------------------
-         * RESPONSIVE DESIGN - MOBILE FIRST
-         * ------------------------------------------------------------------ */
-
-        /* Tablet: 1024px and below */
-        @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .grid-kpi {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-            
-            .history-controls {
-                justify-content: center;
-            }
-            
-            .chart-container {
-                height: 280px;
-            }
-        }
-
-        /* Mobile: 768px and below */
-        @media (max-width: 768px) {
-            html {
-                font-size: 15px;
-            }
-            
-            .wrapper {
-                padding: 1rem 0.75rem;
-            }
-            
-            header {
-                border-radius: var(--radius-md);
-                padding: 0.75rem;
-                top: 0.5rem;
-                margin-bottom: 1.5rem;
-                gap: 0.5rem;
-            }
-            
-            .brand-text h1 {
-                font-size: clamp(1.1rem, 4vw, 1.4rem);
-            }
-            
-            .brand-text span {
-                font-size: clamp(0.7rem, 2vw, 0.8rem);
-            }
-            
-            .user-menu {
-                justify-content: flex-end;
-                width: 100%;
-                order: 3;
-            }
-            
-            .user-menu .btn-primary span {
-                display: inline;
-            }
-            
-            .sync-status span {
-                display: none;
-            }
-            
-            .grid-kpi {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
-            
-            .kpi-item {
-                min-height: 100px;
-                padding: 1.25rem 1rem;
-            }
-            
-            .history-nav {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 1rem;
-            }
-            
-            .history-controls {
-                justify-content: center;
-            }
-            
-            .history-select {
-                min-width: 100px;
-                flex: 1;
-                padding: 0.85rem 1rem; /* More padding for mobile */
-            }
-            
-            .tx-item {
-                grid-template-columns: 35px minmax(0, 1fr) auto;
-                gap: 0.5rem;
-                padding: 0.75rem 0.5rem;
-                min-height: 65px;
-            }
-            
-            .tx-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 0.9rem;
-            }
-            
-            .delete-btn {
-                opacity: 1; /* Always show on mobile */
-                padding: 0.25rem;
-                min-width: 44px;
-                min-height: 44px;
-            }
-            
-            .chart-container {
-                height: 250px;
-            }
-            
-            .toast-container {
-                bottom: 1rem;
-                left: 0.5rem;
-                right: 0.5rem;
-            }
-            
-            .auth-tabs {
-                flex-direction: column;
-                gap: 0.25rem;
-                background: transparent;
-                padding: 0;
-            }
-            
-            .auth-tab {
-                border-radius: var(--radius-md);
-                padding: 0.75rem; /* More padding for touch */
-                min-height: 48px;
-            }
-            
-            /* Always show export text */
-            .user-menu .btn-primary span {
-                display: inline !important;
-            }
-            
-            /* Make export button smaller but still visible */
-            .user-menu .btn-primary {
-                padding: 0.75rem 0.85rem;
-                font-size: 0.8rem;
-                min-height: 44px;
-            }
-            
-            /* Increase touch targets on mobile */
-            .btn {
-                min-height: 44px;
-                min-width: 44px;
-            }
-            
-            .btn-icon {
-                width: 44px;
-                height: 44px;
-            }
-            
-            .toggle-btn {
-                min-height: 44px;
-                padding: 0.85rem 0.5rem;
-            }
-            
-            .input-field {
-                padding: 0.85rem;
-                min-height: 48px;
-            }
-        }
-
-        /* Small mobile: 480px and below */
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-            
-            .wrapper {
-                padding: 0.75rem 0.5rem;
-            }
-            
-            header {
-                padding: 0.5rem;
-                border-radius: var(--radius-sm);
-            }
-            
-            .brand-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 0.9rem;
-            }
-            
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
-            }
-            
-            .btn-icon {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .user-menu {
-                gap: 0.25rem;
-            }
-            
-            .glass-card {
-                padding: 1rem 0.75rem;
-                border-radius: var(--radius-md);
-            }
-            
-            .grid-kpi {
-                gap: 0.5rem;
-            }
-            
-            .kpi-item {
-                min-height: 90px;
-                padding: 1rem 0.75rem;
-            }
-            
-            .kpi-value {
-                font-size: 1.5rem;
-            }
-            
-            .history-controls {
-                gap: 0.25rem;
-            }
-            
-            .history-select {
-                min-width: 80px;
-                padding: 0.75rem 0.5rem;
-                font-size: 0.85rem;
-            }
-            
-            .main-layout {
-                gap: 1rem;
-            }
-            
-            .tx-item {
-                grid-template-columns: 30px minmax(0, 1fr) auto;
-                gap: 0.5rem;
-                padding: 0.5rem;
-                min-height: 60px;
-            }
-            
-            .tx-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            
-            .tx-content h4 {
-                font-size: 0.85rem;
-            }
-            
-            .chart-container {
-                height: 220px;
-            }
-            
-            .dropdown-content {
-                right: 0.5rem;
-                left: 0.5rem;
-                max-width: calc(100vw - 1rem);
-                width: auto;
-            }
-            
-            /* Show export icon only on very small screens */
-            .user-menu .btn-primary span {
-                display: none;
-            }
-            
-            .user-menu .btn-primary {
-                padding: 0.5rem;
-                min-width: 44px;
-                min-height: 44px;
-                justify-content: center;
-            }
-            
-            /* Even larger touch targets for very small screens */
-            .btn {
-                min-height: 44px;
-                min-width: 44px;
-            }
-            
-            .toggle-btn {
-                min-height: 40px;
-                padding: 0.75rem 0.25rem;
-            }
-        }
-
-        /* Very small mobile: 360px and below */
-        @media (max-width: 360px) {
-            .wrapper {
-                padding: 0.5rem;
-            }
-            
-            header {
-                padding: 0.5rem;
-                gap: 0.25rem;
-            }
-            
-            .brand {
-                gap: 0.5rem;
-            }
-            
-            .brand-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            
-            .user-menu {
-                gap: 0.25rem;
-            }
-            
-            .history-controls {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .history-select {
-                width: 100%;
-                padding: 0.75rem;
-            }
-            
-            .tx-item {
-                grid-template-columns: 25px minmax(0, 1fr) auto;
-                gap: 0.25rem;
-                padding: 0.5rem 0.25rem;
-                min-height: 55px;
-            }
-            
-            .tx-icon {
-                width: 25px;
-                height: 25px;
-                font-size: 0.7rem;
-            }
-            
-            .tx-amount {
-                font-size: 0.8rem;
-            }
-            
-            .btn {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.75rem;
-                min-height: 40px;
-                min-width: 40px;
-            }
-            
-            .user-menu .btn {
-                padding: 0.4rem 0.6rem;
-            }
-            
-            .toggle-btn {
-                min-height: 36px;
-                padding: 0.5rem 0.25rem;
-                font-size: 0.75rem;
-            }
-        }
-
-        /* Landscape mode optimization */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .auth-screen {
-                min-height: auto;
-                padding: 1rem;
-            }
-            
-            .auth-container {
-                max-width: 90%;
-            }
-            
-            .tx-list {
-                max-height: 250px;
-            }
-            
-            .chart-container {
-                height: 200px;
-            }
-            
-            .kpi-item {
-                min-height: 80px;
-            }
-            
-            .btn, .toggle-btn, .input-field, .history-select {
-                min-height: 40px;
-            }
-            
-            .tx-item {
-                min-height: 50px;
-                padding: 0.5rem;
-            }
-        }
-
-        /* High resolution screens */
-        @media (min-width: 1400px) {
-            .wrapper {
-                max-width: 1400px;
-            }
-            
-            .grid-kpi {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-            
-            .main-layout {
-                grid-template-columns: 400px 1fr;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            header, .toast-container, .btn, .dropdown-content, .delete-btn {
-                display: none !important;
-            }
-            
-            body {
-                background: white !important;
-                color: black !important;
-            }
-            
-            .glass-card {
-                box-shadow: none !important;
-                border: 1px solid #ccc !important;
-                break-inside: avoid;
-            }
-            
-            .wrapper {
-                padding: 0 !important;
-            }
-        }
-
-        /* Fix for iOS Safari viewport */
-        @supports (-webkit-touch-callout: none) {
-            .auth-screen,
-            #dashboard {
-                min-height: -webkit-fill-available;
-            }
-            
-            /* Fix for iOS touch issues */
-            input, textarea, select {
-                font-size: 16px !important; /* Prevent iOS zoom */
-            }
-            
-            .btn, .toggle-btn, .auth-tab {
-                cursor: default; /* Remove cursor on iOS */
-            }
-        }
-
-        /* Prevent horizontal scroll */
-        body, html {
-            overflow-x: hidden !important;
-            position: relative;
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-
-        /* Ensure all containers don't overflow */
-        .wrapper, .glass-card, .history-nav, header, .main-layout, .grid-kpi {
-            box-sizing: border-box;
-            max-width: 100%;
-        }
-
-        /* Fix for select elements on mobile */
-        select.input-field, .history-select {
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 1rem;
-            padding-right: 2.5rem;
-        }
-
-        [data-theme="dark"] select.input-field,
-        [data-theme="dark"] .history-select {
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-        }
-
-        /* Active state for touch devices */
-        .btn:active, .toggle-btn:active, .auth-tab:active,
-        .dropdown-item:active, .user-avatar:active {
-            transform: scale(0.98);
-            transition: transform 0.1s;
-        }
-
-        /* Remove blue highlight on Android Chrome */
-        *:focus {
-            outline: none;
-        }
-
-        /* Better focus for accessibility */
-        .btn:focus-visible,
-        .toggle-btn:focus-visible,
-        .input-field:focus-visible,
-        .auth-tab:focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* Disable text selection on buttons */
-        .btn, .toggle-btn, .auth-tab, .dropdown-item {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
     </style>
 </head>
 
@@ -1393,9 +694,9 @@
             <div class="glass-card">
                 <div class="brand" style="justify-content: center; margin-bottom: 2rem;">
                     <div class="brand-icon"><i class="fas fa-cube"></i></div>
-                    <div style="text-align: center;" class="brand-text">
-                        <h1 style="font-size: clamp(1.5rem, 5vw, 2rem); line-height: 1.1;">FinFlow Pro</h1>
-                        <span style="font-size: clamp(0.8rem, 2vw, 0.9rem); color: var(--text-secondary);">Enterprise Finance Dashboard</span>
+                    <div style="text-align: center;">
+                        <h1 style="font-size: 2rem; line-height: 1.1;">FinFlow Pro</h1>
+                        <span style="font-size: 0.9rem; color: var(--text-secondary);">Enterprise Finance Dashboard</span>
                     </div>
                 </div>
 
@@ -1416,19 +717,19 @@
                         <input type="password" id="login-password" class="input-field" placeholder="••••••••" required>
                     </div>
 
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0; flex-wrap: wrap; gap: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0;">
                         <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                             <input type="checkbox" id="remember-me">
-                            <span style="font-size: clamp(0.8rem, 2vw, 0.9rem);">Remember me</span>
+                            <span style="font-size: 0.9rem;">Remember me</span>
                         </label>
-                        <a href="#" style="font-size: clamp(0.8rem, 2vw, 0.9rem); color: var(--primary); text-decoration: none;" onclick="Auth.resetPassword()">Forgot password?</a>
+                        <a href="#" style="font-size: 0.9rem; color: var(--primary); text-decoration: none;" onclick="Auth.resetPassword()">Forgot password?</a>
                     </div>
 
                     <button type="button" onclick="Auth.login()" class="btn btn-primary" style="width: 100%;">
                         <i class="fas fa-sign-in-alt"></i> Sign In
                     </button>
 
-                    <div style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: clamp(0.8rem, 2vw, 0.9rem);">
+                    <div style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
                         <p>Powered by Firebase</p>
                         <p>Your data is securely stored in the cloud</p>
                     </div>
@@ -1457,9 +758,9 @@
                     </div>
 
                     <div style="margin: 1.5rem 0;">
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex-wrap: wrap;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                             <input type="checkbox" id="terms" required>
-                            <span style="font-size: clamp(0.8rem, 2vw, 0.9rem);">I agree to the <a href="#" style="color: var(--primary);">Terms & Conditions</a></span>
+                            <span style="font-size: 0.9rem;">I agree to the <a href="#" style="color: var(--primary);">Terms & Conditions</a></span>
                         </label>
                     </div>
 
@@ -1477,9 +778,9 @@
             <header>
                 <div class="brand">
                     <div class="brand-icon"><i class="fas fa-cube"></i></div>
-                    <div class="brand-text">
-                        <h1 style="font-size: clamp(1rem, 3vw, 1.4rem); line-height: 1.1;">FinFlow Pro</h1>
-                        <span style="font-size: clamp(0.7rem, 2vw, 0.8rem); color: var(--text-secondary);" id="user-email">Enterprise Dashboard</span>
+                    <div>
+                        <h1 style="font-size: 1.4rem; line-height: 1.1;">FinFlow Pro</h1>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);" id="user-email">Enterprise Dashboard</span>
                     </div>
                 </div>
                 <div class="user-menu">
@@ -1522,8 +823,8 @@
             <!-- History Navigation -->
             <div class="history-nav">
                 <div>
-                    <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 600;">Financial Overview</h3>
-                    <p style="font-size: clamp(0.8rem, 2vw, 0.9rem); color: var(--text-secondary); margin-top: 0.25rem;" id="history-period">
+                    <h3 style="font-size: 1.2rem; font-weight: 600;">Financial Overview</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;" id="history-period">
                         Current Period
                     </p>
                 </div>
@@ -1545,7 +846,7 @@
                     </button>
                     
                     <button class="btn btn-primary" onclick="History.goToCurrent()">
-                        <i class="fas fa-calendar-alt"></i> <span>Current</span>
+                        <i class="fas fa-calendar-alt"></i> Current
                     </button>
                 </div>
             </div>
@@ -1584,7 +885,7 @@
             <div class="main-layout">
                 <!-- Input Form -->
                 <div class="glass-card">
-                    <h3 style="margin-bottom: 1.5rem; font-size: clamp(1rem, 3vw, 1.2rem);">New Transaction</h3>
+                    <h3 style="margin-bottom: 1.5rem;">New Transaction</h3>
 
                     <form id="tx-form">
                         <div class="type-toggle">
@@ -1630,12 +931,12 @@
                 </div>
 
                 <!-- Charts & List -->
-                <div style="display: flex; flex-direction: column; gap: clamp(1rem, 3vw, 2rem);">
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
                     <!-- Chart Section -->
                     <div class="glass-card">
                         <div class="list-header" style="border:none; padding:0; margin-bottom:1rem;">
-                            <h3 style="font-size: clamp(1rem, 3vw, 1.2rem);">Analytics</h3>
-                            <select class="input-field" style="width:auto; padding:0.4rem; font-size: clamp(0.8rem, 2vw, 0.9rem);"
+                            <h3>Analytics</h3>
+                            <select class="input-field" style="width:auto; padding:0.4rem;"
                                 onchange="App.filterChart(this.value)">
                                 <option value="expense">Expenses Breakdown</option>
                                 <option value="income">Income Sources</option>
@@ -1647,13 +948,12 @@
                     </div>
 
                     <!-- Transactions List -->
-                    <div class="glass-card" style="flex:1; min-height: 300px;">
+                    <div class="glass-card" style="flex:1;">
                         <div class="list-header">
-                            <h3 style="font-size: clamp(1rem, 3vw, 1.2rem);">Recent Transactions</h3>
-                            <div style="display:flex; gap:0.5rem; align-items: center;">
+                            <h3>Recent Transactions</h3>
+                            <div style="display:flex; gap:0.5rem;">
                                 <input type="text" placeholder="Search..." class="input-field"
-                                    style="padding:0.4rem 0.8rem; width: clamp(100px, 30vw, 150px); font-size: clamp(0.8rem, 2vw, 0.9rem);"
-                                    id="search-input">
+                                    style="padding:0.4rem 0.8rem; width:150px;" onkeyup="App.searchTx(this.value)">
                                 <button class="btn btn-ghost btn-icon" onclick="App.clearAll()" title="Clear All"><i
                                         class="fas fa-trash-alt"></i></button>
                             </div>
@@ -1674,11 +974,10 @@
     <script>
         /**
          * FinFlow Pro with Firebase Database
-         * Complete Cloud Solution - Responsive for Mobile & Desktop
-         * FIXED: Touch issues for mobile devices
+         * Complete Cloud Solution
          */
 
-        // Firebase Configuration
+        // Firebase Configuration - Using YOUR Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDA9orgoSq8OjxahFmT3kgMu3sl-2kFBlY",
             authDomain: "finflow-15f58.firebaseapp.com",
@@ -1693,6 +992,7 @@
         let firebaseApp, auth, db, analytics;
         
         try {
+            // Check if Firebase is available
             if (typeof firebase !== 'undefined') {
                 firebaseApp = firebase.initializeApp(firebaseConfig);
                 auth = firebase.auth();
@@ -1700,6 +1000,7 @@
                 analytics = firebase.analytics();
                 console.log("Firebase initialized successfully!");
                 
+                // Make available globally
                 window.firebaseApp = firebaseApp;
                 window.firebaseAuth = auth;
                 window.firebaseDb = db;
@@ -1781,14 +1082,15 @@
             useLocalStorage: false,
             isOnline: false,
             pendingSync: [],
-            isSaving: false,
 
             init() {
                 this.updateSyncStatus();
                 
+                // Check online status
                 window.addEventListener('online', () => this.updateSyncStatus());
                 window.addEventListener('offline', () => this.updateSyncStatus());
                 
+                // Try to sync pending transactions every 30 seconds
                 setInterval(() => this.syncPendingTransactions(), 30000);
             },
 
@@ -1809,55 +1111,31 @@
             },
 
             async saveTransaction(transaction) {
-                if (this.isSaving) {
-                    console.log("Already saving transaction, skipping duplicate...");
-                    return;
-                }
-                
-                this.isSaving = true;
-                
-                try {
-                    const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
-                    
-                    const existingIndex = localData.findIndex(t => t.id === transaction.id);
-                    if (existingIndex !== -1) {
-                        console.log("Transaction already exists in local storage, updating...");
-                        localData[existingIndex] = transaction;
-                    } else {
-                        localData.push(transaction);
-                    }
-                    
-                    localStorage.setItem('finflow_local_data', JSON.stringify(localData));
+                // Always save to local storage first
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                localData.push(transaction);
+                localStorage.setItem('finflow_local_data', JSON.stringify(localData));
 
-                    if (this.isOnline && window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage) {
-                        try {
-                            await db.collection('users')
-                                .doc(window.firebaseAuth.currentUser.uid)
-                                .collection('transactions')
-                                .doc(transaction.id)
-                                .set(transaction, { merge: true });
-                            console.log('Transaction saved to Firebase');
-                        } catch (error) {
-                            console.error('Error saving to Firebase:', error);
-                            this.pendingSync.push(transaction);
-                        }
-                    } else {
+                // If online and Firebase is available, save to cloud
+                if (this.isOnline && window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage) {
+                    try {
+                        await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .doc(transaction.id)
+                            .set(transaction);
+                        console.log('Transaction saved to Firebase');
+                    } catch (error) {
+                        console.error('Error saving to Firebase:', error);
                         this.pendingSync.push(transaction);
                     }
-                    
-                    const existsInAppData = App.data.findIndex(t => t.id === transaction.id);
-                    if (existsInAppData === -1) {
-                        App.data.push(transaction);
-                    } else {
-                        App.data[existsInAppData] = transaction;
-                    }
-                    
-                } finally {
-                    this.isSaving = false;
+                } else {
+                    this.pendingSync.push(transaction);
                 }
             },
 
             async loadTransactions() {
+                // Try to load from cloud first
                 if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
                     try {
                         const snapshot = await db.collection('users')
@@ -1871,6 +1149,7 @@
                             cloudData.push(doc.data());
                         });
                         
+                        // Save cloud data to local storage for offline access
                         localStorage.setItem('finflow_cloud_data', JSON.stringify(cloudData));
                         
                         return cloudData;
@@ -1880,30 +1159,23 @@
                     }
                 }
                 
+                // Fallback to local storage
                 const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
                 const cloudData = JSON.parse(localStorage.getItem('finflow_cloud_data') || '[]');
                 
-                const allData = [...localData, ...cloudData];
-                const uniqueData = [];
-                const seenIds = new Set();
-                
-                for (const transaction of allData) {
-                    if (!seenIds.has(transaction.id)) {
-                        seenIds.add(transaction.id);
-                        uniqueData.push(transaction);
-                    }
-                }
-                
-                return uniqueData;
+                // Merge local and cached cloud data
+                return [...localData, ...cloudData].filter((v, i, a) => 
+                    a.findIndex(t => t.id === v.id) === i
+                );
             },
 
             async deleteTransaction(transactionId) {
+                // Remove from local storage
                 const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
                 const filteredData = localData.filter(t => t.id !== transactionId);
                 localStorage.setItem('finflow_local_data', JSON.stringify(filteredData));
                 
-                App.data = App.data.filter(t => t.id !== transactionId);
-                
+                // Remove from cloud if online
                 if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
                     try {
                         await db.collection('users')
@@ -1918,10 +1190,10 @@
             },
 
             async clearAllTransactions() {
+                // Clear local storage
                 localStorage.removeItem('finflow_local_data');
                 
-                App.data = [];
-                
+                // Clear cloud data if online
                 if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
                     try {
                         const snapshot = await db.collection('users')
@@ -1951,7 +1223,7 @@
                 
                 this.pendingSync.forEach(transaction => {
                     const txRef = userRef.collection('transactions').doc(transaction.id);
-                    batch.set(txRef, transaction, { merge: true });
+                    batch.set(txRef, transaction);
                 });
                 
                 try {
@@ -1982,14 +1254,14 @@
                 
                 localData.forEach(transaction => {
                     const txRef = userRef.collection('transactions').doc(transaction.id);
-                    batch.set(txRef, transaction, { merge: true });
+                    batch.set(txRef, transaction);
                 });
                 
                 try {
                     await batch.commit();
                     localStorage.removeItem('finflow_local_data');
                     this.showToast('All data synced to cloud successfully', 'success');
-                    App.loadData();
+                    App.loadData(); // Reload data
                 } catch (error) {
                     console.error('Error syncing to cloud:', error);
                     this.showToast('Sync failed: ' + error.message, 'error');
@@ -2029,6 +1301,7 @@
                     return;
                 }
 
+                // Listen for auth state changes
                 window.firebaseAuth.onAuthStateChanged(async (user) => {
                     if (user) {
                         this.currentUser = user;
@@ -2039,6 +1312,7 @@
                     }
                 });
 
+                // Check for existing session
                 const storedUser = localStorage.getItem('finflow_user');
                 if (storedUser) {
                     try {
@@ -2071,6 +1345,7 @@
                     const userCredential = await window.firebaseAuth.signInWithEmailAndPassword(email, password);
                     this.currentUser = userCredential.user;
                     
+                    // Store user info
                     localStorage.setItem('finflow_user', JSON.stringify({
                         uid: this.currentUser.uid,
                         email: this.currentUser.email,
@@ -2109,10 +1384,12 @@
                     const userCredential = await window.firebaseAuth.createUserWithEmailAndPassword(email, password);
                     this.currentUser = userCredential.user;
                     
+                    // Update profile with name
                     await this.currentUser.updateProfile({
                         displayName: name
                     });
                     
+                    // Create user document in Firestore
                     await db.collection('users').doc(this.currentUser.uid).set({
                         name: name,
                         email: email,
@@ -2120,6 +1397,7 @@
                         lastLogin: new Date().toISOString()
                     });
                     
+                    // Store user info
                     localStorage.setItem('finflow_user', JSON.stringify({
                         uid: this.currentUser.uid,
                         email: this.currentUser.email,
@@ -2170,22 +1448,27 @@
             },
 
             async showDashboard() {
+                // Update UI with user info
                 document.getElementById('user-email').textContent = this.currentUser.email;
                 document.getElementById('dropdown-name').textContent = this.currentUser.displayName || this.currentUser.email.split('@')[0];
                 
+                // Generate avatar initials
                 const displayName = this.currentUser.displayName || this.currentUser.email;
                 const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase();
                 document.getElementById('user-avatar').innerHTML = `<span>${initials}</span>`;
 
+                // Switch screens
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
 
+                // Initialize all components
                 Theme.init();
                 History.init();
                 Database.init();
                 App.init();
                 Form.init();
 
+                // Load data
                 await App.loadData();
             },
 
@@ -2356,42 +1639,6 @@
                     e.preventDefault();
                     App.addTransaction();
                 });
-                
-                // Fix for mobile date input
-                if (this.isMobile()) {
-                    document.getElementById('tx-date').addEventListener('touchstart', function() {
-                        this.type = 'date';
-                        this.focus();
-                    });
-                }
-                
-                // Add search functionality
-                document.getElementById('search-input').addEventListener('input', function(e) {
-                    App.searchTx(this.value);
-                });
-                
-                // Improve touch for dropdown
-                this.improveTouchForDropdowns();
-            },
-            
-            isMobile() {
-                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            },
-            
-            improveTouchForDropdowns() {
-                // Make selects more touch-friendly
-                document.querySelectorAll('select').forEach(select => {
-                    select.addEventListener('touchstart', function(e) {
-                        e.stopPropagation();
-                    });
-                    
-                    select.addEventListener('change', function(e) {
-                        // Force blur to close keyboard on mobile
-                        if (Form.isMobile()) {
-                            this.blur();
-                        }
-                    });
-                });
             },
 
             setType(newType) {
@@ -2441,68 +1688,15 @@
             }
         };
 
-        // Main App - Improved Touch Support
+        // Main App
         const App = {
             data: [],
             chartType: 'expense',
             chartInstance: null,
-            isAddingTransaction: false,
 
             init() {
                 Theme.init();
                 Form.init();
-                
-                // Prevent form zoom on iOS
-                if (Form.isMobile()) {
-                    document.querySelectorAll('input, select, textarea').forEach(el => {
-                        el.addEventListener('focus', function() {
-                            this.style.fontSize = '16px';
-                        });
-                        el.addEventListener('blur', function() {
-                            this.style.fontSize = '';
-                        });
-                    });
-                }
-                
-                // Improve touch handling
-                this.improveTouchHandling();
-            },
-            
-            improveTouchHandling() {
-                // Add touch event listeners for better mobile support
-                document.querySelectorAll('.btn, .toggle-btn, .auth-tab, .dropdown-item, .user-avatar').forEach(el => {
-                    el.addEventListener('touchstart', function(e) {
-                        this.classList.add('active-touch');
-                    });
-                    
-                    el.addEventListener('touchend', function(e) {
-                        this.classList.remove('active-touch');
-                    });
-                    
-                    el.addEventListener('touchcancel', function(e) {
-                        this.classList.remove('active-touch');
-                    });
-                });
-                
-                // Prevent context menu on long press
-                document.addEventListener('contextmenu', function(e) {
-                    if (Form.isMobile()) {
-                        e.preventDefault();
-                    }
-                });
-                
-                // Improve transaction item touch
-                document.addEventListener('touchstart', function(e) {
-                    if (e.target.closest('.tx-item')) {
-                        e.target.closest('.tx-item').classList.add('touch-active');
-                    }
-                });
-                
-                document.addEventListener('touchend', function(e) {
-                    document.querySelectorAll('.tx-item.touch-active').forEach(el => {
-                        el.classList.remove('touch-active');
-                    });
-                });
             },
 
             async loadData() {
@@ -2526,49 +1720,28 @@
             },
 
             async addTransaction() {
-                if (this.isAddingTransaction) {
-                    console.log("Already adding a transaction, please wait...");
+                const tx = Form.getValues();
+                
+                if (!tx.desc || tx.amount <= 0) {
+                    this.showToast('Please enter valid description and amount', 'error');
                     return;
                 }
                 
-                this.isAddingTransaction = true;
+                // Add to data array
+                this.data.push(tx);
                 
-                try {
-                    const tx = Form.getValues();
-                    
-                    if (!tx.desc || tx.amount <= 0) {
-                        this.showToast('Please enter valid description and amount', 'error');
-                        this.isAddingTransaction = false;
-                        return;
-                    }
-                    
-                    const existingTx = this.data.find(t => 
-                        t.id === tx.id || 
-                        (t.desc === tx.desc && t.amount === tx.amount && t.date === tx.date)
-                    );
-                    
-                    if (existingTx) {
-                        this.showToast('Transaction already exists', 'warning');
-                        this.isAddingTransaction = false;
-                        return;
-                    }
-                    
-                    await Database.saveTransaction(tx);
-                    
-                    this.updateUI();
-                    Form.reset();
-                    this.showToast('Transaction added successfully', 'success');
-                    
-                } catch (error) {
-                    console.error('Error adding transaction:', error);
-                    this.showToast('Error adding transaction: ' + error.message, 'error');
-                } finally {
-                    this.isAddingTransaction = false;
-                }
+                // Save to database
+                await Database.saveTransaction(tx);
+                
+                // Update UI
+                this.updateUI();
+                Form.reset();
+                this.showToast('Transaction added successfully', 'success');
             },
 
             async deleteTx(id) {
                 if (confirm('Delete this transaction?')) {
+                    this.data = this.data.filter(t => t.id !== id);
                     await Database.deleteTransaction(id);
                     this.updateUI();
                     this.showToast('Transaction deleted', 'default');
@@ -2577,6 +1750,7 @@
 
             async clearAll() {
                 if (confirm("DANGER: Delete all transactions for this account?")) {
+                    this.data = [];
                     await Database.clearAllTransactions();
                     this.updateUI();
                     this.showToast('All transactions cleared', 'default');
@@ -2721,8 +1895,6 @@
                     return;
                 }
 
-                const isMobile = window.innerWidth < 768;
-                
                 this.chartInstance = new Chart(ctx2d, {
                     type: 'doughnut',
                     data: {
@@ -2739,22 +1911,17 @@
                         maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                position: isMobile ? 'bottom' : 'right',
+                                position: 'right',
                                 labels: {
                                     color: isDark ? '#94a3b8' : '#64748b',
-                                    font: { 
-                                        family: 'Plus Jakarta Sans', 
-                                        size: isMobile ? (window.innerWidth < 480 ? 10 : 12) : 12 
-                                    },
+                                    font: { family: 'Plus Jakarta Sans', size: 12 },
                                     usePointStyle: true,
-                                    padding: isMobile ? 10 : 20
+                                    padding: 20
                                 }
                             }
                         },
-                        cutout: isMobile ? '60%' : '70%',
-                        layout: { 
-                            padding: isMobile ? 5 : 20 
-                        }
+                        cutout: '70%',
+                        layout: { padding: 20 }
                     }
                 });
             },
@@ -2806,88 +1973,17 @@
             }
         });
 
-        // Also close dropdown on touch outside
-        document.addEventListener('touchstart', (e) => {
-            const dropdown = document.getElementById('user-dropdown');
-            const avatar = document.getElementById('user-avatar');
-            
-            if (dropdown && avatar && !avatar.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-
-        // Handle window resize for chart responsiveness
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                if (App.chartInstance) {
-                    App.chartInstance.resize();
-                    App.renderChart();
-                }
-            }, 250);
-        });
-
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
             console.log("DOM loaded, initializing Auth...");
+            // Wait for Firebase to load
             setTimeout(() => {
                 Auth.init();
             }, 2000);
         });
 
-        // Prevent double form submission
-        document.getElementById('tx-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const submitBtn = this.querySelector('button[type="submit"]');
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                setTimeout(() => {
-                    submitBtn.disabled = false;
-                }, 2000);
-            }
-        });
-
-        // Improved touch handling for mobile
-        let touchStartX = 0;
-        let touchStartY = 0;
-        
-        document.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        document.addEventListener('touchmove', function(e) {
-            const currentY = e.touches[0].clientY;
-            if (document.querySelector('.tx-list').scrollTop === 0 && currentY > touchStartY) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        // Add CSS class for active touch states
-        const style = document.createElement('style');
-        style.textContent = `
-            .active-touch {
-                transform: scale(0.98);
-                opacity: 0.9;
-                transition: transform 0.1s, opacity 0.1s;
-            }
-            
-            .touch-active {
-                background: var(--border) !important;
-            }
-            
-            /* Improve tap highlight for iOS */
-            @supports (-webkit-touch-callout: none) {
-                .btn:active, .toggle-btn:active, .auth-tab:active,
-                .dropdown-item:active, .user-avatar:active, .tx-item:active {
-                    opacity: 0.7;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
     </script>
 </body>
 
 </html>
+make this code to work in phone and pc
