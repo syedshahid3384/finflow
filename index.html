@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>FinFlow Pro | Enterprise Finance</title>
 
     <!-- Typography -->
@@ -19,7 +19,7 @@
     <!-- Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Firebase SDK (Compatibility Version - More Reliable) -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -28,7 +28,7 @@
     <style>
         /* 
          * ------------------------------------------------------------------
-         * DESIGN SYSTEM 2.0 - ENTERPRISE GRADE
+         * DESIGN SYSTEM 2.0 - ENTERPRISE GRADE & RESPONSIVE
          * ------------------------------------------------------------------
          */
 
@@ -97,6 +97,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
         }
 
         body {
@@ -111,6 +116,7 @@
                 radial-gradient(at 0% 0%, hsla(var(--primary-h), 80%, 90%, 0.3) 0px, transparent 50%),
                 radial-gradient(at 100% 0%, hsla(var(--success-h), 80%, 90%, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
+            touch-action: manipulation;
         }
 
         [data-theme="dark"] body {
@@ -133,6 +139,7 @@
             max-width: 1280px;
             margin: 0 auto;
             padding: 1.5rem 2rem;
+            width: 100%;
         }
 
         /* Auth Screen */
@@ -141,7 +148,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 2rem;
+            padding: 2rem 1rem;
         }
 
         .auth-container {
@@ -166,6 +173,7 @@
             border-radius: calc(var(--radius-lg) - 4px);
             color: var(--text-secondary);
             transition: all 0.3s ease;
+            user-select: none;
         }
 
         .auth-tab.active {
@@ -238,6 +246,7 @@
             justify-content: center;
             font-size: 1.25rem;
             box-shadow: 0 4px 12px var(--primary-glow);
+            flex-shrink: 0;
         }
 
         .user-menu {
@@ -257,6 +266,7 @@
             justify-content: center;
             font-weight: 600;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .dropdown {
@@ -297,6 +307,7 @@
             color: var(--text-main);
             text-decoration: none;
             transition: background 0.2s;
+            user-select: none;
         }
 
         .dropdown-item:hover {
@@ -315,6 +326,9 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            user-select: none;
+            touch-action: manipulation;
+            min-height: 44px; /* Better touch target */
         }
 
         .btn-primary {
@@ -406,12 +420,6 @@
             gap: 2rem;
         }
 
-        @media (max-width: 900px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .form-group {
             margin-bottom: 1.25rem;
         }
@@ -433,6 +441,7 @@
             color: var(--text-main);
             font-size: 0.95rem;
             transition: 0.2s;
+            font-size: 16px; /* Prevents iOS zoom on focus */
         }
 
         .input-field:focus {
@@ -459,6 +468,7 @@
             cursor: pointer;
             color: var(--text-secondary);
             transition: 0.2s;
+            user-select: none;
         }
 
         .toggle-btn.active {
@@ -493,6 +503,7 @@
             background: var(--bg-card);
             color: var(--text-main);
             font-weight: 500;
+            cursor: pointer;
         }
 
         /* Transaction List */
@@ -510,6 +521,7 @@
             max-height: 500px;
             overflow-y: auto;
             padding-right: 0.5rem;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
 
         .tx-list::-webkit-scrollbar {
@@ -545,6 +557,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
         .tx-content h4 {
@@ -576,6 +589,11 @@
             transition: 0.2s;
             cursor: pointer;
             padding: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .tx-item:hover .delete-btn {
@@ -684,6 +702,405 @@
             color: var(--danger);
             background: var(--danger)10;
         }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ------------------------------------------------------------------
+         * RESPONSIVE DESIGN - MOBILE FIRST
+         * ------------------------------------------------------------------ */
+
+        /* Tablet: 900px and below */
+        @media (max-width: 900px) {
+            .wrapper {
+                padding: 1.5rem 1rem;
+            }
+            
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .grid-kpi {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .chart-container {
+                height: 280px;
+            }
+            
+            .user-menu {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+        }
+
+        /* Mobile: 768px and below */
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            /* Header adjustments */
+            header {
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+                padding: 0.75rem 1rem;
+                border-radius: var(--radius-lg);
+                top: 0.5rem;
+                margin-bottom: 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .brand {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .brand-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .user-menu {
+                flex: 1;
+                justify-content: flex-end;
+                min-width: 0;
+            }
+            
+            /* Hide export text on mobile */
+            .user-menu .btn-primary span {
+                display: none;
+            }
+            
+            .user-menu .btn-primary {
+                padding: 0.5rem;
+                min-width: 44px;
+                justify-content: center;
+            }
+            
+            /* KPI Grid */
+            .grid-kpi {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .kpi-item {
+                min-height: 110px;
+                padding: 1.25rem;
+            }
+            
+            .kpi-value {
+                font-size: 1.75rem;
+            }
+            
+            .kpi-bg-icon {
+                font-size: 4rem;
+                right: -10px;
+                bottom: -10px;
+            }
+            
+            /* History Navigation */
+            .history-nav {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .history-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .history-select {
+                min-width: 120px;
+                padding: 0.4rem 0.8rem;
+                flex: 1;
+                min-width: 0;
+            }
+            
+            /* Form inputs */
+            .input-field {
+                padding: 0.75rem 1rem;
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 0.85rem 1rem;
+                min-height: 48px;
+            }
+            
+            /* Transaction list */
+            .tx-item {
+                grid-template-columns: 40px 1fr auto;
+                gap: 0.75rem;
+                padding: 0.75rem;
+            }
+            
+            .tx-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            
+            .tx-content h4 {
+                font-size: 0.95rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .tx-content p {
+                font-size: 0.75rem;
+            }
+            
+            .tx-amount {
+                font-size: 0.9rem;
+                white-space: nowrap;
+            }
+            
+            .delete-btn {
+                opacity: 1;
+                padding: 0.25rem;
+                min-width: 36px;
+                min-height: 36px;
+            }
+            
+            /* Chart adjustments */
+            .chart-container {
+                height: 250px;
+            }
+            
+            /* Toast positioning */
+            .toast-container {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+            }
+            
+            .toast {
+                width: 100%;
+                padding: 0.75rem 1rem;
+            }
+            
+            /* Auth screen */
+            .auth-screen {
+                padding: 1rem;
+            }
+            
+            .auth-container {
+                max-width: 100%;
+            }
+            
+            .auth-tabs {
+                margin-bottom: 1rem;
+            }
+            
+            .auth-tab {
+                padding: 0.6rem;
+            }
+            
+            /* Form elements in auth */
+            .auth-form .input-field {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Small mobile: 480px and below */
+        @media (max-width: 480px) {
+            html {
+                font-size: 14px;
+            }
+            
+            .wrapper {
+                padding: 1rem 0.75rem;
+            }
+            
+            header {
+                border-radius: var(--radius-md);
+                padding: 0.75rem;
+            }
+            
+            .brand-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            
+            .user-avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-icon {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .user-menu .btn-ghost {
+                padding: 0.5rem;
+            }
+            
+            .glass-card {
+                padding: 1.25rem 1rem;
+            }
+            
+            .grid-kpi {
+                gap: 0.5rem;
+            }
+            
+            .kpi-item {
+                min-height: 100px;
+                padding: 1rem;
+            }
+            
+            .kpi-value {
+                font-size: 1.5rem;
+            }
+            
+            .history-controls {
+                gap: 0.25rem;
+            }
+            
+            .history-select {
+                min-width: 100px;
+                padding: 0.35rem 0.5rem;
+                font-size: 0.85rem;
+            }
+            
+            .main-layout {
+                gap: 1rem;
+            }
+            
+            .tx-item {
+                grid-template-columns: 35px 1fr auto;
+                gap: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .tx-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            
+            .tx-content h4 {
+                font-size: 0.9rem;
+            }
+            
+            .chart-container {
+                height: 220px;
+            }
+            
+            /* Auth forms on very small screens */
+            .auth-tabs {
+                flex-direction: column;
+                gap: 0.25rem;
+                background: transparent;
+            }
+            
+            .auth-tab {
+                border-radius: var(--radius-md);
+            }
+        }
+
+        /* Very small mobile: 360px and below */
+        @media (max-width: 360px) {
+            .wrapper {
+                padding: 0.75rem 0.5rem;
+            }
+            
+            .history-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .history-select {
+                width: 100%;
+            }
+            
+            .user-menu {
+                gap: 0.5rem;
+            }
+            
+            .tx-item {
+                grid-template-columns: 30px 1fr auto;
+            }
+            
+            .tx-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            
+            .tx-amount {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Landscape mode optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .auth-screen {
+                min-height: auto;
+                padding: 1rem;
+            }
+            
+            .auth-container {
+                max-width: 90%;
+            }
+            
+            .tx-list {
+                max-height: 300px;
+            }
+        }
+
+        /* High resolution screens */
+        @media (min-width: 1400px) {
+            .wrapper {
+                max-width: 1400px;
+            }
+            
+            .grid-kpi {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .main-layout {
+                grid-template-columns: 400px 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            header, .toast-container, .btn, .dropdown-content, .delete-btn {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .glass-card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                break-inside: avoid;
+            }
+        }
     </style>
 </head>
 
@@ -694,7 +1111,7 @@
             <div class="glass-card">
                 <div class="brand" style="justify-content: center; margin-bottom: 2rem;">
                     <div class="brand-icon"><i class="fas fa-cube"></i></div>
-                    <div style="text-align: center;">
+                    <div style="text-align: center;" class="brand-text">
                         <h1 style="font-size: 2rem; line-height: 1.1;">FinFlow Pro</h1>
                         <span style="font-size: 0.9rem; color: var(--text-secondary);">Enterprise Finance Dashboard</span>
                     </div>
@@ -778,7 +1195,7 @@
             <header>
                 <div class="brand">
                     <div class="brand-icon"><i class="fas fa-cube"></i></div>
-                    <div>
+                    <div class="brand-text">
                         <h1 style="font-size: 1.4rem; line-height: 1.1;">FinFlow Pro</h1>
                         <span style="font-size: 0.8rem; color: var(--text-secondary);" id="user-email">Enterprise Dashboard</span>
                     </div>
@@ -974,10 +1391,10 @@
     <script>
         /**
          * FinFlow Pro with Firebase Database
-         * Complete Cloud Solution
+         * Complete Cloud Solution - Responsive for Mobile & Desktop
          */
 
-        // Firebase Configuration - Using YOUR Configuration
+        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDA9orgoSq8OjxahFmT3kgMu3sl-2kFBlY",
             authDomain: "finflow-15f58.firebaseapp.com",
@@ -992,7 +1409,6 @@
         let firebaseApp, auth, db, analytics;
         
         try {
-            // Check if Firebase is available
             if (typeof firebase !== 'undefined') {
                 firebaseApp = firebase.initializeApp(firebaseConfig);
                 auth = firebase.auth();
@@ -1000,7 +1416,6 @@
                 analytics = firebase.analytics();
                 console.log("Firebase initialized successfully!");
                 
-                // Make available globally
                 window.firebaseApp = firebaseApp;
                 window.firebaseAuth = auth;
                 window.firebaseDb = db;
@@ -1086,11 +1501,9 @@
             init() {
                 this.updateSyncStatus();
                 
-                // Check online status
                 window.addEventListener('online', () => this.updateSyncStatus());
                 window.addEventListener('offline', () => this.updateSyncStatus());
                 
-                // Try to sync pending transactions every 30 seconds
                 setInterval(() => this.syncPendingTransactions(), 30000);
             },
 
@@ -1111,12 +1524,10 @@
             },
 
             async saveTransaction(transaction) {
-                // Always save to local storage first
                 const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
                 localData.push(transaction);
                 localStorage.setItem('finflow_local_data', JSON.stringify(localData));
 
-                // If online and Firebase is available, save to cloud
                 if (this.isOnline && window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage) {
                     try {
                         await db.collection('users')
@@ -1135,7 +1546,6 @@
             },
 
             async loadTransactions() {
-                // Try to load from cloud first
                 if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
                     try {
                         const snapshot = await db.collection('users')
@@ -1149,7 +1559,6 @@
                             cloudData.push(doc.data());
                         });
                         
-                        // Save cloud data to local storage for offline access
                         localStorage.setItem('finflow_cloud_data', JSON.stringify(cloudData));
                         
                         return cloudData;
@@ -1159,23 +1568,19 @@
                     }
                 }
                 
-                // Fallback to local storage
                 const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
                 const cloudData = JSON.parse(localStorage.getItem('finflow_cloud_data') || '[]');
                 
-                // Merge local and cached cloud data
                 return [...localData, ...cloudData].filter((v, i, a) => 
                     a.findIndex(t => t.id === v.id) === i
                 );
             },
 
             async deleteTransaction(transactionId) {
-                // Remove from local storage
                 const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
                 const filteredData = localData.filter(t => t.id !== transactionId);
                 localStorage.setItem('finflow_local_data', JSON.stringify(filteredData));
                 
-                // Remove from cloud if online
                 if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
                     try {
                         await db.collection('users')
@@ -1190,10 +1595,8 @@
             },
 
             async clearAllTransactions() {
-                // Clear local storage
                 localStorage.removeItem('finflow_local_data');
                 
-                // Clear cloud data if online
                 if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
                     try {
                         const snapshot = await db.collection('users')
@@ -1261,7 +1664,7 @@
                     await batch.commit();
                     localStorage.removeItem('finflow_local_data');
                     this.showToast('All data synced to cloud successfully', 'success');
-                    App.loadData(); // Reload data
+                    App.loadData();
                 } catch (error) {
                     console.error('Error syncing to cloud:', error);
                     this.showToast('Sync failed: ' + error.message, 'error');
@@ -1301,7 +1704,6 @@
                     return;
                 }
 
-                // Listen for auth state changes
                 window.firebaseAuth.onAuthStateChanged(async (user) => {
                     if (user) {
                         this.currentUser = user;
@@ -1312,7 +1714,6 @@
                     }
                 });
 
-                // Check for existing session
                 const storedUser = localStorage.getItem('finflow_user');
                 if (storedUser) {
                     try {
@@ -1345,7 +1746,6 @@
                     const userCredential = await window.firebaseAuth.signInWithEmailAndPassword(email, password);
                     this.currentUser = userCredential.user;
                     
-                    // Store user info
                     localStorage.setItem('finflow_user', JSON.stringify({
                         uid: this.currentUser.uid,
                         email: this.currentUser.email,
@@ -1384,12 +1784,10 @@
                     const userCredential = await window.firebaseAuth.createUserWithEmailAndPassword(email, password);
                     this.currentUser = userCredential.user;
                     
-                    // Update profile with name
                     await this.currentUser.updateProfile({
                         displayName: name
                     });
                     
-                    // Create user document in Firestore
                     await db.collection('users').doc(this.currentUser.uid).set({
                         name: name,
                         email: email,
@@ -1397,7 +1795,6 @@
                         lastLogin: new Date().toISOString()
                     });
                     
-                    // Store user info
                     localStorage.setItem('finflow_user', JSON.stringify({
                         uid: this.currentUser.uid,
                         email: this.currentUser.email,
@@ -1448,27 +1845,22 @@
             },
 
             async showDashboard() {
-                // Update UI with user info
                 document.getElementById('user-email').textContent = this.currentUser.email;
                 document.getElementById('dropdown-name').textContent = this.currentUser.displayName || this.currentUser.email.split('@')[0];
                 
-                // Generate avatar initials
                 const displayName = this.currentUser.displayName || this.currentUser.email;
                 const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase();
                 document.getElementById('user-avatar').innerHTML = `<span>${initials}</span>`;
 
-                // Switch screens
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
 
-                // Initialize all components
                 Theme.init();
                 History.init();
                 Database.init();
                 App.init();
                 Form.init();
 
-                // Load data
                 await App.loadData();
             },
 
@@ -1639,6 +2031,17 @@
                     e.preventDefault();
                     App.addTransaction();
                 });
+                
+                // Better mobile date input
+                if (this.isMobile()) {
+                    document.getElementById('tx-date').addEventListener('focus', function() {
+                        this.type = 'date';
+                    });
+                }
+            },
+            
+            isMobile() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             },
 
             setType(newType) {
@@ -1697,6 +2100,18 @@
             init() {
                 Theme.init();
                 Form.init();
+                
+                // Prevent form zoom on iOS
+                if (Form.isMobile()) {
+                    document.querySelectorAll('input, select, textarea').forEach(el => {
+                        el.addEventListener('focus', function() {
+                            this.style.fontSize = '16px';
+                        });
+                        el.addEventListener('blur', function() {
+                            this.style.fontSize = '';
+                        });
+                    });
+                }
             },
 
             async loadData() {
@@ -1727,13 +2142,10 @@
                     return;
                 }
                 
-                // Add to data array
                 this.data.push(tx);
                 
-                // Save to database
                 await Database.saveTransaction(tx);
                 
-                // Update UI
                 this.updateUI();
                 Form.reset();
                 this.showToast('Transaction added successfully', 'success');
@@ -1911,17 +2323,17 @@
                         maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                position: 'right',
+                                position: window.innerWidth < 768 ? 'bottom' : 'right',
                                 labels: {
                                     color: isDark ? '#94a3b8' : '#64748b',
-                                    font: { family: 'Plus Jakarta Sans', size: 12 },
+                                    font: { family: 'Plus Jakarta Sans', size: window.innerWidth < 480 ? 10 : 12 },
                                     usePointStyle: true,
                                     padding: 20
                                 }
                             }
                         },
                         cutout: '70%',
-                        layout: { padding: 20 }
+                        layout: { padding: window.innerWidth < 768 ? 10 : 20 }
                     }
                 });
             },
@@ -1973,14 +2385,29 @@
             }
         });
 
+        // Handle window resize for chart responsiveness
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (App.chartInstance) {
+                    App.chartInstance.resize();
+                }
+            }, 250);
+        });
+
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
             console.log("DOM loaded, initializing Auth...");
-            // Wait for Firebase to load
             setTimeout(() => {
                 Auth.init();
             }, 2000);
         });
+
+        // Prevent pull-to-refresh on mobile
+        document.addEventListener('touchmove', function (e) {
+            if (e.scale !== 1) { e.preventDefault(); }
+        }, { passive: false });
 
     </script>
 </body>
