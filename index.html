@@ -1635,6 +1635,12 @@
                 
                 this.updateCategories();
 
+                // Remove any existing event listeners to prevent duplicates
+                const txForm = document.getElementById('tx-form');
+                const newTxForm = txForm.cloneNode(true);
+                txForm.parentNode.replaceChild(newTxForm, txForm);
+                
+                // Add new event listener
                 document.getElementById('tx-form').addEventListener('submit', (e) => {
                     e.preventDefault();
                     App.addTransaction();
@@ -1693,6 +1699,7 @@
             data: [],
             chartType: 'expense',
             chartInstance: null,
+            isAdding: false, // Flag to prevent double submission
 
             init() {
                 Theme.init();
@@ -1720,23 +1727,35 @@
             },
 
             async addTransaction() {
+                // Prevent double submission
+                if (this.isAdding) return;
+                this.isAdding = true;
+                
                 const tx = Form.getValues();
                 
                 if (!tx.desc || tx.amount <= 0) {
                     this.showToast('Please enter valid description and amount', 'error');
+                    this.isAdding = false;
                     return;
                 }
                 
-                // Add to data array
-                this.data.push(tx);
-                
-                // Save to database
-                await Database.saveTransaction(tx);
-                
-                // Update UI
-                this.updateUI();
-                Form.reset();
-                this.showToast('Transaction added successfully', 'success');
+                try {
+                    // Add to data array
+                    this.data.push(tx);
+                    
+                    // Save to database
+                    await Database.saveTransaction(tx);
+                    
+                    // Update UI
+                    this.updateUI();
+                    Form.reset();
+                    this.showToast('Transaction added successfully', 'success');
+                } catch (error) {
+                    console.error('Error adding transaction:', error);
+                    this.showToast('Error adding transaction', 'error');
+                } finally {
+                    this.isAdding = false;
+                }
             },
 
             async deleteTx(id) {
