@@ -8,7 +8,1994 @@
 
     <!-- Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinFlow Pro | Enterprise Finance</title>
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Firebase SDK (Compatibility Version - More Reliable) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+
+    <style>
+        /* 
+         * ------------------------------------------------------------------
+         * DESIGN SYSTEM 2.0 - ENTERPRISE GRADE
+         * ------------------------------------------------------------------
+         */
+
+        :root {
+            /* Core HSL Colors - allows for alpha transparency manipulation */
+            --primary-h: 226;
+            --primary-s: 70%;
+            --primary-l: 55%;
+            --success-h: 150;
+            --success-s: 80%;
+            --success-l: 40%;
+            --danger-h: 345;
+            --danger-s: 80%;
+            --danger-l: 55%;
+            --warning-h: 35;
+            --warning-s: 90%;
+            --warning-l: 55%;
+
+            /* Generated Variables */
+            --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+            --primary-dark: hsl(var(--primary-h), var(--primary-s), 40%);
+            --primary-light: hsl(var(--primary-h), var(--primary-s), 95%);
+            --primary-glow: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.3);
+
+            --success: hsl(var(--success-h), var(--success-s), var(--success-l));
+            --danger: hsl(var(--danger-h), var(--danger-s), var(--danger-l));
+
+            /* Surfaces & Defaults */
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+
+            --text-main: #0f172a;
+            --text-secondary: #64748b;
+            --border: #f1f5f9;
+            --border-hover: #e2e8f0;
+
+            /* Elevation */
+            --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.05);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.025);
+            --shadow-float: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.01);
+
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1.25rem;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --border-hover: #475569;
+
+            --primary-light: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
+
+            --shadow-sm: none;
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            background-image:
+                radial-gradient(at 0% 0%, hsla(var(--primary-h), 80%, 90%, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(var(--success-h), 80%, 90%, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        [data-theme="dark"] body {
+            background-image:
+                radial-gradient(at 0% 0%, hsla(226, 60%, 20%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(260, 60%, 20%, 0.3) 0px, transparent 50%);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Layout */
+        .wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        /* Auth Screen */
+        .auth-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-radius: var(--radius-lg);
+            background: var(--border);
+            padding: 0.25rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: calc(var(--radius-lg) - 4px);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            background: var(--bg-card);
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        /* Components */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+        }
+
+        [data-theme="dark"] .glass-card {
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-float);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            padding: 1rem 1.5rem;
+            border-radius: 99px;
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 1rem;
+            z-index: 50;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            right: 0;
+            top: 120%;
+            min-width: 200px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            box-shadow: var(--shadow-float);
+            display: none;
+            z-index: 100;
+        }
+
+        .dropdown-content.active {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: var(--border);
+        }
+
+        /* Buttons */
+        .btn {
+            cursor: pointer;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            transition: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            background: var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            justify-content: center;
+        }
+
+        /* Dashboard Grid */
+        .grid-kpi {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 140px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            z-index: 10;
+        }
+
+        .kpi-bg-icon {
+            position: absolute;
+            right: -15px;
+            bottom: -15px;
+            font-size: 6rem;
+            opacity: 0.05;
+            transform: rotate(-15deg);
+        }
+
+        /* Form Area */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-secondary);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .type-toggle {
+            background: var(--border);
+            padding: 0.25rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: calc(var(--radius-md) - 2px);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: var(--bg-card);
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* History Navigation */
+        .history-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-body);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .history-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .history-select {
+            min-width: 140px;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Transaction List */
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .tx-list {
+            list-style: none;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .tx-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .tx-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 99px;
+        }
+
+        .tx-item {
+            display: grid;
+            grid-template-columns: 50px 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            transition: 0.2s;
+            border-radius: var(--radius-sm);
+        }
+
+        .tx-item:hover {
+            background: var(--bg-body);
+            transform: translateX(4px);
+        }
+
+        .tx-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .tx-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .tx-content p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .tx-amount {
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        .tx-date {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .delete-btn {
+            opacity: 0;
+            color: var(--text-secondary);
+            transition: 0.2s;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .tx-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            color: var(--danger);
+        }
+
+        /* Chart */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Utility */
+        .text-success {
+            color: var(--success);
+        }
+
+        .text-danger {
+            color: var(--danger);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-float);
+            border-left: 5px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            pointer-events: auto;
+            animation: slideIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Sync Status */
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            background: var(--border);
+        }
+
+        .sync-status.online {
+            color: var(--success);
+            background: var(--success)10;
+        }
+
+        .sync-status.offline {
+            color: var(--danger);
+            background: var(--danger)10;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Authentication Screen -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-container">
+            <div class="glass-card">
+                <div class="brand" style="justify-content: center; margin-bottom: 2rem;">
+                    <div class="brand-icon"><i class="fas fa-cube"></i></div>
+                    <div style="text-align: center;">
+                        <h1 style="font-size: 2rem; line-height: 1.1;">FinFlow Pro</h1>
+                        <span style="font-size: 0.9rem; color: var(--text-secondary);">Enterprise Finance Dashboard</span>
+                    </div>
+                </div>
+
+                <div class="auth-tabs">
+                    <div class="auth-tab active" onclick="Auth.showForm('login')">Login</div>
+                    <div class="auth-tab" onclick="Auth.showForm('register')">Register</div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label class="label">Email Address</label>
+                        <input type="email" id="login-email" class="input-field" placeholder="name@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">Password</label>
+                        <input type="password" id="login-password" class="input-field" placeholder="••••••••" required>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="remember-me">
+                            <span style="font-size: 0.9rem;">Remember me</span>
+                        </label>
+                        <a href="#" style="font-size: 0.9rem; color: var(--primary); text-decoration: none;" onclick="Auth.resetPassword()">Forgot password?</a>
+                    </div>
+
+                    <button type="button" onclick="Auth.login()" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+
+                    <div style="text-align: center; margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+                        <p>Powered by Firebase</p>
+                        <p>Your data is securely stored in the cloud</p>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label class="label">Full Name</label>
+                        <input type="text" id="register-name" class="input-field" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">Email Address</label>
+                        <input type="email" id="register-email" class="input-field" placeholder="name@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">Password</label>
+                        <input type="password" id="register-password" class="input-field" placeholder="••••••••" required minlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">Confirm Password</label>
+                        <input type="password" id="register-confirm" class="input-field" placeholder="••••••••" required minlength="6">
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="terms" required>
+                            <span style="font-size: 0.9rem;">I agree to the <a href="#" style="color: var(--primary);">Terms & Conditions</a></span>
+                        </label>
+                    </div>
+
+                    <button type="button" onclick="Auth.register()" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard (Initially Hidden) -->
+    <div id="dashboard" class="hidden">
+        <div class="wrapper">
+            <header>
+                <div class="brand">
+                    <div class="brand-icon"><i class="fas fa-cube"></i></div>
+                    <div>
+                        <h1 style="font-size: 1.4rem; line-height: 1.1;">FinFlow Pro</h1>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);" id="user-email">Enterprise Dashboard</span>
+                    </div>
+                </div>
+                <div class="user-menu">
+                    <div class="sync-status" id="sync-status">
+                        <i class="fas fa-cloud"></i>
+                        <span>Syncing...</span>
+                    </div>
+                    <div class="dropdown">
+                        <div class="user-avatar" onclick="User.toggleDropdown()" id="user-avatar">
+                            <span>JD</span>
+                        </div>
+                        <div class="dropdown-content" id="user-dropdown">
+                            <div class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span id="dropdown-name">John Doe</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-database"></i>
+                                <span>Data Management</span>
+                            </div>
+                            <div class="dropdown-item" onclick="User.signOut()">
+                                <i class="fas fa-sign-out-alt" style="color: var(--danger);"></i>
+                                <span style="color: var(--danger);">Sign Out</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-ghost btn-icon" onclick="Theme.toggle()" title="Toggle Dark Mode">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="btn btn-primary" onclick="App.exportCSV()">
+                        <i class="fas fa-download"></i> <span style="margin-left:5px; display:inline-block;">Export</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- History Navigation -->
+            <div class="history-nav">
+                <div>
+                    <h3 style="font-size: 1.2rem; font-weight: 600;">Financial Overview</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;" id="history-period">
+                        Current Period
+                    </p>
+                </div>
+                <div class="history-controls">
+                    <button class="btn btn-ghost" onclick="History.prevPeriod()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <select class="history-select" id="history-month" onchange="History.updatePeriod()">
+                        <!-- Populated by JS -->
+                    </select>
+                    
+                    <select class="history-select" id="history-year" onchange="History.updatePeriod()">
+                        <!-- Populated by JS -->
+                    </select>
+                    
+                    <button class="btn btn-ghost" onclick="History.nextPeriod()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="History.goToCurrent()">
+                        <i class="fas fa-calendar-alt"></i> Current
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid-kpi">
+                <div class="glass-card kpi-item">
+                    <div>
+                        <div class="kpi-label">Current Balance</div>
+                        <div class="kpi-value" id="balance-display">₹0.00</div>
+                    </div>
+                    <div class="kpi-bg-icon"><i class="fas fa-wallet"></i></div>
+                </div>
+                <div class="glass-card kpi-item">
+                    <div>
+                        <div class="kpi-label">Period Income</div>
+                        <div class="kpi-value text-success" id="income-display">₹0.00</div>
+                    </div>
+                    <div class="kpi-bg-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                </div>
+                <div class="glass-card kpi-item">
+                    <div>
+                        <div class="kpi-label">Period Expenses</div>
+                        <div class="kpi-value text-danger" id="expense-display">₹0.00</div>
+                    </div>
+                    <div class="kpi-bg-icon"><i class="fas fa-arrow-trend-down"></i></div>
+                </div>
+                <div class="glass-card kpi-item">
+                    <div>
+                        <div class="kpi-label">Savings Rate</div>
+                        <div class="kpi-value" style="color: var(--warning);" id="savings-display">0%</div>
+                    </div>
+                    <div class="kpi-bg-icon"><i class="fas fa-chart-pie"></i></div>
+                </div>
+            </div>
+
+            <div class="main-layout">
+                <!-- Input Form -->
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1.5rem;">New Transaction</h3>
+
+                    <form id="tx-form">
+                        <div class="type-toggle">
+                            <div class="toggle-btn active" data-val="expense" onclick="Form.setType('expense')">Expense
+                            </div>
+                            <div class="toggle-btn" data-val="income" onclick="Form.setType('income')">Income</div>
+                        </div>
+                        <input type="hidden" id="tx-type" value="expense">
+
+                        <div class="form-group">
+                            <label class="label">Description</label>
+                            <input type="text" id="tx-desc" class="input-field" placeholder="e.g. Client Payment" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label">Amount (₹)</label>
+                            <input type="number" id="tx-amount" class="input-field" placeholder="0.00" step="0.01"
+                                min="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label">Category</label>
+                            <select id="tx-category" class="input-field">
+                                <!-- Populated by JS -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label">Date</label>
+                            <input type="date" id="tx-date" class="input-field" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-plus"></i> Add Record
+                        </button>
+                    </form>
+
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                        <button class="btn btn-ghost" style="width: 100%;" onclick="Database.syncLocalToCloud()">
+                            <i class="fas fa-cloud-upload-alt"></i> Sync to Cloud
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Charts & List -->
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    <!-- Chart Section -->
+                    <div class="glass-card">
+                        <div class="list-header" style="border:none; padding:0; margin-bottom:1rem;">
+                            <h3>Analytics</h3>
+                            <select class="input-field" style="width:auto; padding:0.4rem;"
+                                onchange="App.filterChart(this.value)">
+                                <option value="expense">Expenses Breakdown</option>
+                                <option value="income">Income Sources</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="financeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Transactions List -->
+                    <div class="glass-card" style="flex:1;">
+                        <div class="list-header">
+                            <h3>Recent Transactions</h3>
+                            <div style="display:flex; gap:0.5rem;">
+                                <input type="text" placeholder="Search..." class="input-field"
+                                    style="padding:0.4rem 0.8rem; width:150px;" onkeyup="App.searchTx(this.value)">
+                                <button class="btn btn-ghost btn-icon" onclick="App.clearAll()" title="Clear All"><i
+                                        class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                        <ul class="tx-list" id="tx-list">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+        /**
+         * FinFlow Pro with Firebase Database
+         * Complete Cloud Solution
+         */
+
+        // Firebase Configuration - Using YOUR Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDA9orgoSq8OjxahFmT3kgMu3sl-2kFBlY",
+            authDomain: "finflow-15f58.firebaseapp.com",
+            projectId: "finflow-15f58",
+            storageBucket: "finflow-15f58.firebasestorage.app",
+            messagingSenderId: "983313400695",
+            appId: "1:983313400695:web:5287a6c418b7538c279772",
+            measurementId: "G-J38FDB3YZQ"
+        };
+
+        // Initialize Firebase
+        let firebaseApp, auth, db, analytics;
+        
+        try {
+            // Check if Firebase is available
+            if (typeof firebase !== 'undefined') {
+                firebaseApp = firebase.initializeApp(firebaseConfig);
+                auth = firebase.auth();
+                db = firebase.firestore();
+                analytics = firebase.analytics();
+                console.log("Firebase initialized successfully!");
+                
+                // Make available globally
+                window.firebaseApp = firebaseApp;
+                window.firebaseAuth = auth;
+                window.firebaseDb = db;
+            } else {
+                console.error("Firebase SDK not loaded");
+            }
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+        }
+
+        // Theme Manager
+        const Theme = {
+            init() {
+                const saved = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', saved);
+                this.updateIcon(saved);
+            },
+            toggle() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const newTheme = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                this.updateIcon(newTheme);
+                App.renderChart();
+            },
+            updateIcon(theme) {
+                const icon = document.getElementById('theme-icon');
+                icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        };
+
+        // Utils
+        const Utils = {
+            formatCurrency: (num) => {
+                const value = parseFloat(num) || 0;
+                return '₹' + value.toLocaleString('en-IN', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            },
+            
+            formatDate: (date) => {
+                try {
+                    const dateObj = new Date(date);
+                    if (isNaN(dateObj.getTime())) return 'Invalid Date';
+                    return new Intl.DateTimeFormat('en-IN', { 
+                        day: 'numeric', 
+                        month: 'short', 
+                        year: 'numeric' 
+                    }).format(dateObj);
+                } catch (e) {
+                    return 'Invalid Date';
+                }
+            },
+            
+            generateID: () => Date.now().toString(36) + Math.random().toString(36).substr(2),
+
+            categories: {
+                expense: [
+                    { id: 'housing', label: 'Housing', icon: 'fa-house', color: '#6366f1' },
+                    { id: 'food', label: 'Food & Dining', icon: 'fa-utensils', color: '#ec4899' },
+                    { id: 'transport', label: 'Transport', icon: 'fa-car', color: '#f59e0b' },
+                    { id: 'tech', label: 'Tech & Subs', icon: 'fa-microchip', color: '#0ea5e9' },
+                    { id: 'health', label: 'Health', icon: 'fa-heart-pulse', color: '#ef4444' },
+                    { id: 'shopping', label: 'Shopping', icon: 'fa-bag-shopping', color: '#8b5cf6' },
+                    { id: 'other', label: 'Other', icon: 'fa-circle-notch', color: '#64748b' }
+                ],
+                income: [
+                    { id: 'salary', label: 'Salary', icon: 'fa-briefcase', color: '#10b981' },
+                    { id: 'freelance', label: 'Freelance', icon: 'fa-laptop-code', color: '#3b82f6' },
+                    { id: 'investment', label: 'Investments', icon: 'fa-arrow-trend-up', color: '#8b5cf6' },
+                    { id: 'other', label: 'Other', icon: 'fa-circle-plus', color: '#64748b' }
+                ]
+            }
+        };
+
+        // Database Manager
+        const Database = {
+            useLocalStorage: false,
+            isOnline: false,
+            pendingSync: [],
+
+            init() {
+                this.updateSyncStatus();
+                
+                // Check online status
+                window.addEventListener('online', () => this.updateSyncStatus());
+                window.addEventListener('offline', () => this.updateSyncStatus());
+                
+                // Try to sync pending transactions every 30 seconds
+                setInterval(() => this.syncPendingTransactions(), 30000);
+            },
+
+            updateSyncStatus() {
+                const statusEl = document.getElementById('sync-status');
+                this.isOnline = navigator.onLine;
+                
+                if (this.useLocalStorage || !window.firebaseAuth) {
+                    statusEl.innerHTML = '<i class="fas fa-database"></i><span>Local Storage</span>';
+                    statusEl.className = 'sync-status offline';
+                } else if (this.isOnline) {
+                    statusEl.innerHTML = '<i class="fas fa-cloud"></i><span>Online</span>';
+                    statusEl.className = 'sync-status online';
+                } else {
+                    statusEl.innerHTML = '<i class="fas fa-wifi-slash"></i><span>Offline</span>';
+                    statusEl.className = 'sync-status offline';
+                }
+            },
+
+            async saveTransaction(transaction) {
+                // Always save to local storage first
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                localData.push(transaction);
+                localStorage.setItem('finflow_local_data', JSON.stringify(localData));
+
+                // If online and Firebase is available, save to cloud
+                if (this.isOnline && window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage) {
+                    try {
+                        await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .doc(transaction.id)
+                            .set(transaction);
+                        console.log('Transaction saved to Firebase');
+                    } catch (error) {
+                        console.error('Error saving to Firebase:', error);
+                        this.pendingSync.push(transaction);
+                    }
+                } else {
+                    this.pendingSync.push(transaction);
+                }
+            },
+
+            async loadTransactions() {
+                // Try to load from cloud first
+                if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
+                    try {
+                        const snapshot = await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .orderBy('date', 'desc')
+                            .get();
+                        
+                        const cloudData = [];
+                        snapshot.forEach(doc => {
+                            cloudData.push(doc.data());
+                        });
+                        
+                        // Save cloud data to local storage for offline access
+                        localStorage.setItem('finflow_cloud_data', JSON.stringify(cloudData));
+                        
+                        return cloudData;
+                    } catch (error) {
+                        console.error('Error loading from Firebase:', error);
+                        this.useLocalStorage = true;
+                    }
+                }
+                
+                // Fallback to local storage
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                const cloudData = JSON.parse(localStorage.getItem('finflow_cloud_data') || '[]');
+                
+                // Merge local and cached cloud data
+                return [...localData, ...cloudData].filter((v, i, a) => 
+                    a.findIndex(t => t.id === v.id) === i
+                );
+            },
+
+            async deleteTransaction(transactionId) {
+                // Remove from local storage
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                const filteredData = localData.filter(t => t.id !== transactionId);
+                localStorage.setItem('finflow_local_data', JSON.stringify(filteredData));
+                
+                // Remove from cloud if online
+                if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
+                    try {
+                        await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .doc(transactionId)
+                            .delete();
+                    } catch (error) {
+                        console.error('Error deleting from Firebase:', error);
+                    }
+                }
+            },
+
+            async clearAllTransactions() {
+                // Clear local storage
+                localStorage.removeItem('finflow_local_data');
+                
+                // Clear cloud data if online
+                if (window.firebaseAuth && window.firebaseAuth.currentUser && !this.useLocalStorage && this.isOnline) {
+                    try {
+                        const snapshot = await db.collection('users')
+                            .doc(window.firebaseAuth.currentUser.uid)
+                            .collection('transactions')
+                            .get();
+                        
+                        const batch = db.batch();
+                        snapshot.forEach(doc => {
+                            batch.delete(doc.ref);
+                        });
+                        
+                        await batch.commit();
+                    } catch (error) {
+                        console.error('Error clearing Firebase:', error);
+                    }
+                }
+            },
+
+            async syncPendingTransactions() {
+                if (this.pendingSync.length === 0 || !this.isOnline || !window.firebaseAuth || !window.firebaseAuth.currentUser || this.useLocalStorage) {
+                    return;
+                }
+
+                const batch = db.batch();
+                const userRef = db.collection('users').doc(window.firebaseAuth.currentUser.uid);
+                
+                this.pendingSync.forEach(transaction => {
+                    const txRef = userRef.collection('transactions').doc(transaction.id);
+                    batch.set(txRef, transaction);
+                });
+                
+                try {
+                    await batch.commit();
+                    this.pendingSync = [];
+                    this.showToast('Pending transactions synced to cloud', 'success');
+                } catch (error) {
+                    console.error('Error syncing pending transactions:', error);
+                }
+            },
+
+            async syncLocalToCloud() {
+                if (!window.firebaseAuth || !window.firebaseAuth.currentUser || this.useLocalStorage) {
+                    this.showToast('Cannot sync: Firebase not configured', 'error');
+                    return;
+                }
+                
+                const localData = JSON.parse(localStorage.getItem('finflow_local_data') || '[]');
+                if (localData.length === 0) {
+                    this.showToast('No local data to sync', 'info');
+                    return;
+                }
+                
+                this.showToast('Syncing to cloud...', 'info');
+                
+                const batch = db.batch();
+                const userRef = db.collection('users').doc(window.firebaseAuth.currentUser.uid);
+                
+                localData.forEach(transaction => {
+                    const txRef = userRef.collection('transactions').doc(transaction.id);
+                    batch.set(txRef, transaction);
+                });
+                
+                try {
+                    await batch.commit();
+                    localStorage.removeItem('finflow_local_data');
+                    this.showToast('All data synced to cloud successfully', 'success');
+                    App.loadData(); // Reload data
+                } catch (error) {
+                    console.error('Error syncing to cloud:', error);
+                    this.showToast('Sync failed: ' + error.message, 'error');
+                }
+            },
+
+            showToast(msg, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                
+                const color = type === 'error' ? 'var(--danger)' : 
+                             type === 'success' ? 'var(--success)' : 'var(--primary)';
+                toast.style.borderLeftColor = color;
+                
+                const icon = type === 'error' ? 'fa-exclamation-circle' :
+                           type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+                
+                toast.innerHTML = `
+                    <i class="fas ${icon}" style="color: ${color};"></i>
+                    <span>${msg}</span>
+                `;
+                
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+        };
+
+        // Authentication Manager with Firebase
+        const Auth = {
+            currentUser: null,
+
+            init() {
+                if (!window.firebaseAuth) {
+                    console.log("Waiting for Firebase to load...");
+                    setTimeout(() => this.init(), 1000);
+                    return;
+                }
+
+                // Listen for auth state changes
+                window.firebaseAuth.onAuthStateChanged(async (user) => {
+                    if (user) {
+                        this.currentUser = user;
+                        await this.showDashboard();
+                    } else {
+                        this.currentUser = null;
+                        this.showAuthScreen();
+                    }
+                });
+
+                // Check for existing session
+                const storedUser = localStorage.getItem('finflow_user');
+                if (storedUser) {
+                    try {
+                        this.currentUser = JSON.parse(storedUser);
+                    } catch (e) {
+                        localStorage.removeItem('finflow_user');
+                    }
+                }
+            },
+
+            showForm(formType) {
+                document.querySelectorAll('.auth-tab').forEach(tab => {
+                    tab.classList.toggle('active', tab.textContent.toLowerCase() === formType);
+                });
+
+                document.getElementById('login-form').classList.toggle('active', formType === 'login');
+                document.getElementById('register-form').classList.toggle('active', formType === 'register');
+            },
+
+            async login() {
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+
+                if (!email || !password) {
+                    this.showToast('Please fill all fields', 'error');
+                    return;
+                }
+
+                try {
+                    const userCredential = await window.firebaseAuth.signInWithEmailAndPassword(email, password);
+                    this.currentUser = userCredential.user;
+                    
+                    // Store user info
+                    localStorage.setItem('finflow_user', JSON.stringify({
+                        uid: this.currentUser.uid,
+                        email: this.currentUser.email,
+                        name: this.currentUser.displayName || email.split('@')[0]
+                    }));
+                    
+                    this.showToast('Welcome back!', 'success');
+                } catch (error) {
+                    console.error('Login error:', error);
+                    this.showToast(this.getAuthErrorMessage(error), 'error');
+                }
+            },
+
+            async register() {
+                const name = document.getElementById('register-name').value.trim();
+                const email = document.getElementById('register-email').value.trim();
+                const password = document.getElementById('register-password').value;
+                const confirm = document.getElementById('register-confirm').value;
+
+                if (!name || !email || !password || !confirm) {
+                    this.showToast('Please fill all fields', 'error');
+                    return;
+                }
+
+                if (password !== confirm) {
+                    this.showToast('Passwords do not match', 'error');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    this.showToast('Password must be at least 6 characters', 'error');
+                    return;
+                }
+
+                try {
+                    const userCredential = await window.firebaseAuth.createUserWithEmailAndPassword(email, password);
+                    this.currentUser = userCredential.user;
+                    
+                    // Update profile with name
+                    await this.currentUser.updateProfile({
+                        displayName: name
+                    });
+                    
+                    // Create user document in Firestore
+                    await db.collection('users').doc(this.currentUser.uid).set({
+                        name: name,
+                        email: email,
+                        createdAt: new Date().toISOString(),
+                        lastLogin: new Date().toISOString()
+                    });
+                    
+                    // Store user info
+                    localStorage.setItem('finflow_user', JSON.stringify({
+                        uid: this.currentUser.uid,
+                        email: this.currentUser.email,
+                        name: name
+                    }));
+                    
+                    this.showToast('Account created successfully!', 'success');
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    this.showToast(this.getAuthErrorMessage(error), 'error');
+                }
+            },
+
+            async resetPassword() {
+                const email = document.getElementById('login-email').value.trim();
+                if (!email) {
+                    this.showToast('Please enter your email address', 'error');
+                    return;
+                }
+
+                try {
+                    await window.firebaseAuth.sendPasswordResetEmail(email);
+                    this.showToast('Password reset email sent. Check your inbox.', 'success');
+                } catch (error) {
+                    this.showToast(this.getAuthErrorMessage(error), 'error');
+                }
+            },
+
+            getAuthErrorMessage(error) {
+                switch (error.code) {
+                    case 'auth/invalid-email':
+                        return 'Invalid email address';
+                    case 'auth/user-disabled':
+                        return 'This account has been disabled';
+                    case 'auth/user-not-found':
+                        return 'No account found with this email';
+                    case 'auth/wrong-password':
+                        return 'Incorrect password';
+                    case 'auth/email-already-in-use':
+                        return 'Email already in use';
+                    case 'auth/weak-password':
+                        return 'Password is too weak';
+                    case 'auth/network-request-failed':
+                        return 'Network error. Please check your connection';
+                    default:
+                        return 'Authentication failed: ' + error.message;
+                }
+            },
+
+            async showDashboard() {
+                // Update UI with user info
+                document.getElementById('user-email').textContent = this.currentUser.email;
+                document.getElementById('dropdown-name').textContent = this.currentUser.displayName || this.currentUser.email.split('@')[0];
+                
+                // Generate avatar initials
+                const displayName = this.currentUser.displayName || this.currentUser.email;
+                const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase();
+                document.getElementById('user-avatar').innerHTML = `<span>${initials}</span>`;
+
+                // Switch screens
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+
+                // Initialize all components
+                Theme.init();
+                History.init();
+                Database.init();
+                App.init();
+                Form.init();
+
+                // Load data
+                await App.loadData();
+            },
+
+            showAuthScreen() {
+                document.getElementById('auth-screen').classList.remove('hidden');
+                document.getElementById('dashboard').classList.add('hidden');
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+            },
+
+            showToast(message, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                
+                const color = type === 'error' ? 'var(--danger)' : 
+                             type === 'success' ? 'var(--success)' : 'var(--primary)';
+                toast.style.borderLeftColor = color;
+                
+                const icon = type === 'error' ? 'fa-exclamation-circle' :
+                           type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+                
+                toast.innerHTML = `
+                    <i class="fas ${icon}" style="color: ${color};"></i>
+                    <span>${message}</span>
+                `;
+                
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+        };
+
+        // User Profile Manager
+        const User = {
+            toggleDropdown() {
+                document.getElementById('user-dropdown').classList.toggle('active');
+            },
+
+            async signOut() {
+                try {
+                    if (window.firebaseAuth) {
+                        await window.firebaseAuth.signOut();
+                    }
+                    localStorage.removeItem('finflow_user');
+                    window.location.reload();
+                } catch (error) {
+                    console.error('Sign out error:', error);
+                }
+            }
+        };
+
+        // History & Period Management
+        const History = {
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            months: [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ],
+
+            init() {
+                const monthSelect = document.getElementById('history-month');
+                monthSelect.innerHTML = '';
+                this.months.forEach((month, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = month;
+                    option.selected = index === this.currentMonth;
+                    monthSelect.appendChild(option);
+                });
+
+                const yearSelect = document.getElementById('history-year');
+                yearSelect.innerHTML = '';
+                const currentYear = new Date().getFullYear();
+                for (let year = currentYear - 5; year <= currentYear + 2; year++) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    option.selected = year === currentYear;
+                    yearSelect.appendChild(option);
+                }
+
+                this.updatePeriodDisplay();
+            },
+
+            updatePeriod() {
+                const monthSelect = document.getElementById('history-month');
+                const yearSelect = document.getElementById('history-year');
+                
+                this.currentMonth = parseInt(monthSelect.value);
+                this.currentYear = parseInt(yearSelect.value);
+                
+                this.updatePeriodDisplay();
+                App.updateUI();
+            },
+
+            updatePeriodDisplay() {
+                const periodText = `${this.months[this.currentMonth]} ${this.currentYear}`;
+                document.getElementById('history-period').textContent = periodText;
+            },
+
+            prevPeriod() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else {
+                    this.currentMonth--;
+                }
+                
+                this.updateSelectors();
+                this.updatePeriodDisplay();
+                App.updateUI();
+            },
+
+            nextPeriod() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else {
+                    this.currentMonth++;
+                }
+                
+                this.updateSelectors();
+                this.updatePeriodDisplay();
+                App.updateUI();
+            },
+
+            goToCurrent() {
+                const now = new Date();
+                this.currentMonth = now.getMonth();
+                this.currentYear = now.getFullYear();
+                
+                this.updateSelectors();
+                this.updatePeriodDisplay();
+                App.updateUI();
+            },
+
+            updateSelectors() {
+                document.getElementById('history-month').value = this.currentMonth;
+                document.getElementById('history-year').value = this.currentYear;
+            },
+
+            filterByPeriod(transactions) {
+                return transactions.filter(tx => {
+                    try {
+                        const txDate = new Date(tx.date);
+                        return txDate.getMonth() === this.currentMonth && 
+                               txDate.getFullYear() === this.currentYear;
+                    } catch (e) {
+                        return false;
+                    }
+                });
+            }
+        };
+
+        // Form Handling
+        const Form = {
+            type: 'expense',
+
+            init() {
+                const today = new Date();
+                const formattedDate = today.toISOString().split('T')[0];
+                document.getElementById('tx-date').value = formattedDate;
+                
+                this.updateCategories();
+
+                document.getElementById('tx-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    App.addTransaction();
+                });
+            },
+
+            setType(newType) {
+                this.type = newType;
+                document.getElementById('tx-type').value = newType;
+
+                document.querySelectorAll('.toggle-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.val === newType);
+                });
+
+                this.updateCategories();
+            },
+
+            updateCategories() {
+                const select = document.getElementById('tx-category');
+                select.innerHTML = '';
+                Utils.categories[this.type].forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.id;
+                    opt.textContent = c.label;
+                    select.appendChild(opt);
+                });
+            },
+
+            getValues() {
+                const amount = parseFloat(document.getElementById('tx-amount').value) || 0;
+                const date = document.getElementById('tx-date').value;
+                
+                return {
+                    id: Utils.generateID(),
+                    desc: document.getElementById('tx-desc').value.trim(),
+                    amount: amount,
+                    type: this.type,
+                    category: document.getElementById('tx-category').value,
+                    date: date,
+                    userId: Auth.currentUser ? Auth.currentUser.uid : 'local',
+                    createdAt: new Date().toISOString()
+                };
+            },
+
+            reset() {
+                document.getElementById('tx-desc').value = '';
+                document.getElementById('tx-amount').value = '';
+                const today = new Date();
+                const formattedDate = today.toISOString().split('T')[0];
+                document.getElementById('tx-date').value = formattedDate;
+            }
+        };
+
+        // Main App
+        const App = {
+            data: [],
+            chartType: 'expense',
+            chartInstance: null,
+
+            init() {
+                Theme.init();
+                Form.init();
+            },
+
+            async loadData() {
+                this.showLoading(true);
+                try {
+                    this.data = await Database.loadTransactions();
+                    this.updateUI();
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    this.showToast('Error loading data', 'error');
+                } finally {
+                    this.showLoading(false);
+                }
+            },
+
+            showLoading(show) {
+                const txList = document.getElementById('tx-list');
+                if (show) {
+                    txList.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+                }
+            },
+
+            async addTransaction() {
+                const tx = Form.getValues();
+                
+                if (!tx.desc || tx.amount <= 0) {
+                    this.showToast('Please enter valid description and amount', 'error');
+                    return;
+                }
+                
+                // Add to data array
+                this.data.push(tx);
+                
+                // Save to database
+                await Database.saveTransaction(tx);
+                
+                // Update UI
+                this.updateUI();
+                Form.reset();
+                this.showToast('Transaction added successfully', 'success');
+            },
+
+            async deleteTx(id) {
+                if (confirm('Delete this transaction?')) {
+                    this.data = this.data.filter(t => t.id !== id);
+                    await Database.deleteTransaction(id);
+                    this.updateUI();
+                    this.showToast('Transaction deleted', 'default');
+                }
+            },
+
+            async clearAll() {
+                if (confirm("DANGER: Delete all transactions for this account?")) {
+                    this.data = [];
+                    await Database.clearAllTransactions();
+                    this.updateUI();
+                    this.showToast('All transactions cleared', 'default');
+                }
+            },
+
+            updateUI() {
+                this.renderKPIs();
+                this.renderList(this.data);
+                this.renderChart();
+            },
+
+            renderKPIs() {
+                const periodData = History.filterByPeriod(this.data);
+                
+                const totals = periodData.reduce((acc, t) => {
+                    const amount = parseFloat(t.amount) || 0;
+                    acc[t.type] = (acc[t.type] || 0) + amount;
+                    return acc;
+                }, { income: 0, expense: 0 });
+
+                const income = totals.income || 0;
+                const expense = totals.expense || 0;
+                const bal = income - expense;
+                
+                let savings = 0;
+                if (income > 0) {
+                    savings = (Math.max(bal, 0) / income) * 100;
+                }
+
+                document.getElementById('balance-display').textContent = Utils.formatCurrency(bal);
+                document.getElementById('income-display').textContent = Utils.formatCurrency(income);
+                document.getElementById('expense-display').textContent = Utils.formatCurrency(expense);
+                document.getElementById('savings-display').textContent = savings.toFixed(0) + '%';
+            },
+
+            renderList(list) {
+                const el = document.getElementById('tx-list');
+                el.innerHTML = '';
+
+                const periodList = History.filterByPeriod(list);
+
+                if (periodList.length === 0) {
+                    el.innerHTML = '<li style="text-align:center; padding:2rem; color:var(--text-secondary);">No transactions for selected period.</li>';
+                    return;
+                }
+
+                const sorted = [...periodList].sort((a, b) => {
+                    try {
+                        return new Date(b.date) - new Date(a.date);
+                    } catch (e) {
+                        return 0;
+                    }
+                });
+
+                sorted.forEach(t => {
+                    const cats = Utils.categories[t.type] || [];
+                    const meta = cats.find(c => c.id === t.category) || { icon: 'fa-circle', color: '#ccc', label: 'Unknown' };
+                    const isInc = t.type === 'income';
+
+                    const li = document.createElement('li');
+                    li.className = 'tx-item';
+                    li.innerHTML = `
+                    <div class="tx-icon" style="background:${meta.color}20; color:${meta.color}">
+                        <i class="fas ${meta.icon}"></i>
+                    </div>
+                    <div class="tx-content">
+                        <h4>${t.desc}</h4>
+                        <p>${meta.label} • ${Utils.formatDate(t.date)}</p>
+                    </div>
+                    <div>
+                        <span class="tx-amount" style="color: ${isInc ? 'var(--success)' : 'var(--text-main)'}">
+                            ${isInc ? '+' : '-'} ${Utils.formatCurrency(t.amount)}
+                        </span>
+                        <br>
+                        <span class="delete-btn" onclick="App.deleteTx('${t.id}')">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </div>
+                `;
+                    el.appendChild(li);
+                });
+            },
+
+            searchTx(query) {
+                const lower = query.toLowerCase().trim();
+                if (!lower) {
+                    this.renderList(this.data);
+                    return;
+                }
+                
+                const filtered = this.data.filter(t => 
+                    t.desc.toLowerCase().includes(lower) || 
+                    t.amount.toString().includes(lower) ||
+                    t.category.toLowerCase().includes(lower)
+                );
+                this.renderList(filtered);
+            },
+
+            filterChart(type) {
+                this.chartType = type;
+                this.renderChart();
+            },
+
+            renderChart() {
+                const ctx = document.getElementById('financeChart');
+                if (!ctx) return;
+                
+                const ctx2d = ctx.getContext('2d');
+                const periodData = History.filterByPeriod(this.data);
+                const relevantData = periodData.filter(t => t.type === this.chartType);
+
+                const grouped = {};
+                relevantData.forEach(t => {
+                    const amount = parseFloat(t.amount) || 0;
+                    grouped[t.category] = (grouped[t.category] || 0) + amount;
+                });
+
+                const labels = [];
+                const values = [];
+                const colors = [];
+
+                Object.keys(grouped).forEach(k => {
+                    const meta = Utils.categories[this.chartType].find(c => c.id === k);
+                    labels.push(meta ? meta.label : k);
+                    values.push(grouped[k]);
+                    colors.push(meta ? meta.color : '#ccc');
+                });
+
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+                if (this.chartInstance) {
+                    this.chartInstance.destroy();
+                }
+
+                if (values.length === 0) {
+                    ctx2d.clearRect(0, 0, ctx.width, ctx.height);
+                    ctx2d.font = '14px Plus Jakarta Sans';
+                    ctx2d.fillStyle = isDark ? '#94a3b8' : '#64748b';
+                    ctx2d.textAlign = 'center';
+                    ctx2d.fillText('No data available for selected period', ctx.width / 2, ctx.height / 2);
+                    return;
+                }
+
+                this.chartInstance = new Chart(ctx2d, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: colors,
+                            borderWidth: 0,
+                            hoverOffset: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    color: isDark ? '#94a3b8' : '#64748b',
+                                    font: { family: 'Plus Jakarta Sans', size: 12 },
+                                    usePointStyle: true,
+                                    padding: 20
+                                }
+                            }
+                        },
+                        cutout: '70%',
+                        layout: { padding: 20 }
+                    }
+                });
+            },
+
+            exportCSV() {
+                const periodData = History.filterByPeriod(this.data);
+                
+                if (periodData.length === 0) {
+                    this.showToast('No data to export', 'error');
+                    return;
+                }
+                
+                let csv = "Date,Description,Type,Category,Amount\n";
+                periodData.forEach(t => {
+                    csv += `${t.date},"${t.desc}",${t.type},${t.category},${t.amount}\n`;
+                });
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                const period = `${History.months[History.currentMonth]}_${History.currentYear}`;
+                a.download = `FinFlow_${period}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                
+                this.showToast('CSV exported successfully', 'success');
+            },
+
+            showToast(msg, type) {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                const color = type === 'success' ? 'var(--success)' : 
+                             type === 'error' ? 'var(--danger)' : 'var(--primary)';
+                toast.style.borderLeftColor = color;
+                toast.innerHTML = `<span>${msg}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 3500);
+            }
+        };
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('user-dropdown');
+            const avatar = document.getElementById('user-avatar');
+            
+            if (dropdown && avatar && !avatar.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM loaded, initializing Auth...");
+            // Wait for Firebase to load
+            setTimeout(() => {
+                Auth.init();
+            }, 2000);
+        });
+
+    </script>
+</body>
+
+</html>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -2552,3 +4539,4 @@
 </body>
 
 </html>
+
